@@ -13,7 +13,7 @@ class Mail3 extends Component {
 <body>
 <div>
             <font>
-              <b>From:</b> department_service_security@microsoft.com
+              <b>From:</b> Office365@company.com
               <br></br>
               <b>Send:</b> Thursday, June 04, 2020 10:30:54 PM
               <br />
