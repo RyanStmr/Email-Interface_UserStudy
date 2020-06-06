@@ -11,11 +11,22 @@ class Mail3 extends Component {
 	<title></title>
 </head>
 <body>
+<div>
+            <font>
+              <b>From:</b> department_service_security@microsoft.com
+              <br></br>
+              <b>Send:</b> Thursday, June 04, 2020 10:30:54 PM
+              <br />
+              <b>Subject:</b> Microsoft account security alert
+            </font>
+            <div></div>
+          </div>
+          <div></div>
 <h1>Microsoft Account</h1>
 
 <p>Dear User,</p>
 
-<p>Someone in Bogot&Atilde;&iexcl; Colombia attempted to log into your account several times. If you believe this was fraudulent activity please report it&nbsp;<a href="{{.URL}}">here</a>.</p>
+<p>Someone in Bogota, Colombia attempted to log into your account several times. If you believe this was fraudulent activity please report it&nbsp;<a href="{{.URL}}">here</a>.</p>
 
 <p>If you do not believe this to be fraudulent activity you may ignore this message</p>
 
