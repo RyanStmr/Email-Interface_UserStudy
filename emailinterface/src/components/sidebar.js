@@ -91,7 +91,7 @@ export default function VerticalTabs(props) {
       </Tabs>
 
       <TabPanel value={value} index={0}>
-        Welcome to our study
+        Welcome to our study {props.userName} with email {props.emailAdress}
       </TabPanel>
       <TabPanel value={value} index={1}>
         <Mail1></Mail1>
