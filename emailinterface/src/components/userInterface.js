@@ -36,7 +36,7 @@ class UserInterface extends Component {
           </div>
         </div>
         <Sidebar onNewEmail={this.handleEmailChange}></Sidebar>;
-      </div>
+    </div>
     );
   }
 }

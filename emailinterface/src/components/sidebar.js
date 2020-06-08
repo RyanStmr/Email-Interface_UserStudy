@@ -8,6 +8,7 @@ import Box from "@material-ui/core/Box";
 import EmailIcon from "@material-ui/icons/Email";
 import Mail1 from "./mails/mail1";
 import Mail2 from "./mails/mail2";
+import Mail3 from "./mails/mail3";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -97,6 +98,9 @@ export default function VerticalTabs(props) {
       </TabPanel>
       <TabPanel value={value} index={2}>
         <Mail2></Mail2>
+      </TabPanel>
+      <TabPanel value={value} index={3}>
+        <Mail3></Mail3>
       </TabPanel>
       <TabPanel value={value} index={3}></TabPanel>
       <TabPanel value={value} index={4}>
