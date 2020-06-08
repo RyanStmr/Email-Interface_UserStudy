@@ -19,7 +19,12 @@ const StartPage = (props) => {
     <div className="StartPage">
       <h1>Startpage</h1>
       <p>Welcome to our study: You will have to do this and that</p>
-      <input name="email" value={values.email} onChange={handleChange}></input>
+      <input
+        name="email"
+        value={values.email}
+        onChange={handleChange}
+        style={{ width: 300 }}
+      ></input>
       <input name="name" value={values.name} onChange={handleChange}></input>
       <Link to="/UserInterface">
         <button onClick={updateProp}>Start Userstudy</button>
