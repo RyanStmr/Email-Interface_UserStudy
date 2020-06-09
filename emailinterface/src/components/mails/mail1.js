@@ -6,7 +6,8 @@ class Mail1 extends Component {
   render() {
     return (
       <React.Fragment>
-        <h1>This is a Mail Component</h1>
+        <h2>{this.props.userName}</h2>
+        <h2>{this.props.emailAdress}</h2>
         <img src={pic}></img>
       </React.Fragment>
     );

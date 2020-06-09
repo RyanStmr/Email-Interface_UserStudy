@@ -113,7 +113,10 @@ export default function VerticalTabs(props) {
         const SpecificEmail = email.mail;
         return (
           <TabPanel value={value} index={emails.indexOf(email)}>
-            <SpecificEmail></SpecificEmail>
+            <SpecificEmail
+              userName={props.userName}
+              emailAdress={props.emailAdress}
+            ></SpecificEmail>
             <div>
               <button
                 onClick={() => moveToSpam(emails.indexOf(email))}
