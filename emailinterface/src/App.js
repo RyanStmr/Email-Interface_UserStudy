@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.css";
-import UserInterface from "./components/userInterface.js";
+import EmailClient from "./components/emailClient.js";
 import StartPage from "./components/startPage.js";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
@@ -22,9 +22,9 @@ function App() {
           render={() => <StartPage updatedData={updateUserInfo} />}
         />
         <Route
-          path="/UserInterface"
+          path="/EmailClient"
           render={() => (
-            <UserInterface emailAdress={emailAdress} userName={username} />
+            <EmailClient emailAdress={emailAdress} userName={username} />
           )}
         />
       </Switch>
