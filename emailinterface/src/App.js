@@ -1,12 +1,34 @@
 import React from "react";
 import "./App.css";
 import UserInterface from "./components/userInterface.js";
+import StartPage from "./components/startPage.js";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 function App() {
+  let username = "max mustermann";
+  let emailAdress = "max_mustermann@example.com";
+
+  const updateUserInfo = (adress, name) => {
+    username = name;
+    emailAdress = adress;
+  };
+
   return (
-    <div className="App">
-      <UserInterface></UserInterface>
-    </div>
+    <Router>
+      <Switch>
+        <Route
+          path="/"
+          exact
+          render={() => <StartPage updatedData={updateUserInfo} />}
+        />
+        <Route
+          path="/UserInterface"
+          render={() => (
+            <UserInterface emailAdress={emailAdress} userName={username} />
+          )}
+        />
+      </Switch>
+    </Router>
   );
 }
 

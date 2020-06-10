@@ -5,9 +5,9 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
-import EmailIcon from "@material-ui/icons/Email";
 import Mail1 from "./mails/mail1";
 import Mail2 from "./mails/mail2";
+import Mail3 from "./mails/mail3";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -58,6 +58,15 @@ export default function VerticalTabs(props) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
+  const emails = [
+    { mail: Mail1, id: 1, title: "Email 1", type: "all" },
+    { mail: Mail2, id: 2, title: "Email 2", type: "all" },
+    { mail: Mail3, id: 3, title: "Email 3", type: "spam" },
+    { mail: Mail1, id: 4, title: "Email 4", type: "all" },
+    { mail: Mail2, id: 5, title: "Email 5", type: "all" },
+    { mail: Mail3, id: 6, title: "Email 6", type: "all" },
+  ];
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
 
@@ -69,6 +78,18 @@ export default function VerticalTabs(props) {
     props.onNewEmail(newValue);
   };
 
+  const logger = (toBeLogged) => {
+    console.log(toBeLogged);
+  };
+
+  const moveToSpam = (mailID) => {
+    emails[mailID].type = "spam";
+    console.log(emails[mailID].type);
+  };
+
+  const respondeMail = () => {};
+  const deleteMail = () => {};
+
   return (
     <div className={classes.root} style={{ width: 1000 }}>
       <Tabs
@@ -79,53 +100,46 @@ export default function VerticalTabs(props) {
         aria-label="Vertical tabs example"
         className={classes.tabs}
       >
-        <Tab label={"Inbox (7)"} {...a11yProps(0)} style={{ color: "red" }} />
-        <Tab label="Mail 1" {...a11yProps(1)} />
-        <Tab label="Mail 2" {...a11yProps(2)} />
-        <Tab label="Mail 3" {...a11yProps(3)} />
-        <Tab label="Mail 4" {...a11yProps(4)} />
-        <Tab label="Mail 5" {...a11yProps(5)} />
-        <Tab label="Mail 6" {...a11yProps(6)} />
-        <Tab label="Mail 7" {...a11yProps(7)} />
+        {emails.map((email) => {
+          if (email.type != "spam") {
+            return (
+              <Tab label={email.title} {...a11yProps(emails.indexOf(email))} />
+            );
+          }
+        })}
       </Tabs>
 
-      <TabPanel value={value} index={0}>
-        Welcome to our study
-      </TabPanel>
-      <TabPanel value={value} index={1}>
-        <Mail1></Mail1>
-      </TabPanel>
-      <TabPanel value={value} index={2}>
-        <Mail2></Mail2>
-      </TabPanel>
-      <TabPanel value={value} index={3}></TabPanel>
-      <TabPanel value={value} index={4}>
-        Mail Five
-      </TabPanel>
-      <TabPanel value={value} index={5}>
-        Item Six
-      </TabPanel>
-      <TabPanel value={value} index={6}>
-        Item Seven
-      </TabPanel>
-      <TabPanel value={value} index={7}>
-        Item Two
-      </TabPanel>
-      <TabPanel value={value} index={8}>
-        Item Three
-      </TabPanel>
-      <TabPanel value={value} index={9}>
-        Item Four
-      </TabPanel>
-      <TabPanel value={value} index={10}>
-        Item Five
-      </TabPanel>
-      <TabPanel value={value} index={11}>
-        Item Six
-      </TabPanel>
-      <TabPanel value={value} index={12}>
-        Item Seven
-      </TabPanel>
+      {emails.map((email) => {
+        const SpecificEmail = email.mail;
+        return (
+          <TabPanel value={value} index={emails.indexOf(email)}>
+            <SpecificEmail
+              userName={props.userName}
+              emailAdress={props.emailAdress}
+            ></SpecificEmail>
+            <div>
+              <button
+                onClick={() => moveToSpam(emails.indexOf(email))}
+                style={{ color: "red", backgroundColor: "white" }}
+              >
+                Move to Spam
+              </button>
+              <button
+                onClick={() => respondeMail(emails.indexOf(email))}
+                style={{ color: "red", backgroundColor: "white" }}
+              >
+                Respond
+              </button>
+              <button
+                onClick={() => deleteMail(emails.indexOf(email))}
+                style={{ color: "red", backgroundColor: "white" }}
+              >
+                Delete
+              </button>
+            </div>
+          </TabPanel>
+        );
+      })}
     </div>
   );
 }

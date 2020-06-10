@@ -35,7 +35,12 @@ class UserInterface extends Component {
             </h1>
           </div>
         </div>
-        <Sidebar onNewEmail={this.handleEmailChange}></Sidebar>;
+        <Sidebar
+          onNewEmail={this.handleEmailChange}
+          emailAdress={this.props.emailAdress}
+          userName={this.props.userName}
+        ></Sidebar>
+        ;
       </div>
     );
   }
