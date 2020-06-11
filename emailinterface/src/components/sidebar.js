@@ -5,6 +5,9 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
+import Button from "@material-ui/core/Button";
+import EmailIcon from "@material-ui/icons/Email";
+
 import { useState, setState } from "react";
 
 function TabPanel(props) {
@@ -19,7 +22,7 @@ function TabPanel(props) {
       {...other}
     >
       {value === index && (
-        <Box p={9}>
+        <Box p={3}>
           <Typography>{children}</Typography>
         </Box>
       )}
@@ -43,9 +46,9 @@ function a11yProps(index) {
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    backgroundColor: theme.palette.background.paper,
+    backgroundColor: "white",
     display: "flex",
-    height: 800,
+    height: 500,
   },
   tabs: {
     borderRight: `1px solid ${theme.palette.divider}`,
@@ -75,61 +78,103 @@ export default function VerticalTabs(props) {
   const deleteMail = () => {};
 
   return (
-    <div className={classes.root} style={{ width: 1000 }}>
-      <Tabs
-        orientation="vertical"
-        variant="scrollable"
-        value={value}
-        onChange={handleChange}
-        aria-label="Vertical tabs example"
-        className={classes.tabs}
-      >
+    <div>
+      <div style={{ backgroundColor: "red", width: 1000, height: 50 }}>
+        <div>
+          <h1
+            style={{
+              color: "white",
+              textshadow: "5px 5px white",
+              textAlign: "center",
+              verticalAlign: "middle",
+            }}
+          >
+            Email Inbox{" "}
+            <EmailIcon
+              style={{
+                verticalAlign: "middle",
+              }}
+            ></EmailIcon>
+          </h1>
+        </div>
+      </div>
+      <div className={classes.root} style={{ width: 1000 }}>
+        <Tabs
+          orientation="vertical"
+          variant="scrollable"
+          value={value}
+          onChange={handleChange}
+          aria-label="Vertical tabs example"
+          className={classes.tabs}
+        >
+          {props.Mails.map((email) => {
+            return (
+              <Tab
+                label={email.title}
+                {...a11yProps(props.Mails.indexOf(email))}
+              />
+            );
+          })}
+        </Tabs>
+
         {props.Mails.map((email) => {
+          const SpecificEmail = email.mail;
+
           return (
-            <Tab
-              label={email.title}
-              {...a11yProps(props.Mails.indexOf(email))}
-            />
+            <TabPanel value={value} index={props.Mails.indexOf(email)}>
+              <SpecificEmail
+                userName={props.userName}
+                emailAdress={props.emailAdress}
+              ></SpecificEmail>
+              <div>
+                <Button
+                  variant="contained"
+                  onClick={() => {
+                    props.onMoveToSpam(email.id);
+
+                    reRender();
+                  }}
+                  style={{
+                    color: "red",
+                    backgroundColor: "white",
+                    margin: "10px",
+                  }}
+                >
+                  Move to Spam
+                </Button>
+                <Button
+                  variant="contained"
+                  onClick={() =>
+                    props.onRespondeMail(props.Mails.indexOf(email))
+                  }
+                  style={{
+                    color: "red",
+                    backgroundColor: "white",
+                    margin: "3px",
+                  }}
+                  disabled
+                >
+                  Respond
+                </Button>
+                <Button
+                  variant="contained"
+                  onClick={() =>
+                    props.onRespondeMail(props.Mails.indexOf(email))
+                  }
+                  style={{
+                    color: "white",
+                    backgroundColor: "red",
+                    margin: "3px",
+                  }}
+                  disabled
+                >
+                  Delete
+                </Button>
+              </div>
+            </TabPanel>
           );
         })}
-      </Tabs>
-
-      {props.Mails.map((email) => {
-        const SpecificEmail = email.mail;
-
-        return (
-          <TabPanel value={value} index={props.Mails.indexOf(email)}>
-            <SpecificEmail
-              userName={props.userName}
-              emailAdress={props.emailAdress}
-            ></SpecificEmail>
-            <div>
-              <button
-                onClick={() => {
-                  props.onMoveToSpam(email.id);
-
-                  reRender();
-                }}
-                style={{ color: "red", backgroundColor: "white" }}
-              >
-                Move to Spam
-              </button>
-              <button
-                onClick={() => props.onRespondeMail(props.Mails.indexOf(email))}
-                style={{ color: "red", backgroundColor: "white" }}
-              >
-                Respond
-              </button>
-              <button
-                onClick={() => props.onRespondeMail(props.Mails.indexOf(email))}
-                style={{ color: "red", backgroundColor: "white" }}
-              >
-                Delete
-              </button>
-            </div>
-          </TabPanel>
-        );
-      })}
+      </div>
     </div>
   );
 }

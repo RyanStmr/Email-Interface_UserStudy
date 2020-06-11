@@ -29,7 +29,7 @@ class AllInbox extends Component {
   render() {
     return (
       <div>
-        <h1>im AllInbox</h1>
+        <h1>Gesamte Posteingang</h1>
         <Sidebar
           Mails={this.state.allInbox}
           InboxType="AllInbox"

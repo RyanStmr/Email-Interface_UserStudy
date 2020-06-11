@@ -8,18 +8,25 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import AllInbox from "./allInbox";
 import SpamInbox from "./spamInbox";
 import BinInbox from "./binInbox";
+import Button from "@material-ui/core/Button";
 
 class EmailClient extends Component {
   state = {
-    currentInbox: "",
+    currentInbox: "AllInbox",
     currentEmail: 0,
     inbox: [
-      { mail: Mail1, id: 1, title: "Email 1", type: "AllInbox" },
-      { mail: Mail2, id: 2, title: "Email 2", type: "AllInbox" },
+      { mail: Mail1, id: 1, title: "Ruderer T.", type: "AllInbox" },
+      { mail: Mail2, id: 2, title: "Check 24.", type: "AllInbox" },
       { mail: Mail3, id: 3, title: "Email 3", type: "AllInbox" },
-      { mail: Mail1, id: 4, title: "Email 4", type: "BinInbox" },
-      { mail: Mail2, id: 5, title: "Email 5", type: "BinInbox" },
+      { mail: Mail1, id: 4, title: "Email 4", type: "AllInbox" },
+      { mail: Mail2, id: 5, title: "Email 5", type: "AllInbox" },
       { mail: Mail3, id: 6, title: "Email 6", type: "AllInbox" },
+      { mail: Mail1, id: 7, title: "Email 7", type: "AllInbox" },
+      { mail: Mail2, id: 8, title: "Email 8", type: "AllInbox" },
+      { mail: Mail3, id: 9, title: "Email 9", type: "AllInbox" },
+      { mail: Mail1, id: 10, title: "Email 10", type: "AllInbox" },
+      { mail: Mail2, id: 11, title: "Email 11", type: "AllInbox" },
+      { mail: Mail3, id: 12, title: "Email 12", type: "AllInbox" },
     ],
   };
 
@@ -65,7 +72,7 @@ class EmailClient extends Component {
           onMoveToSpam={this.onMoveToSpam}
         ></BinInbox>
       );
-    } else if (currentInbox === "AllMails") {
+    } else if (currentInbox === "AllInbox") {
       inbox = (
         <AllInbox
           Mails={this.state.inbox}
@@ -85,41 +92,44 @@ class EmailClient extends Component {
     return (
       <div>
         <nav>
-          <ul className="nav-links">
+          <ul
+            className="nav-links"
+            style={{ display: "left", listStyleType: "none" }}
+          >
             <Link
               to="/EmailClient/AllMails"
-              onClick={() => this.handleInboxChange("AllMails")}
+              onClick={() => this.handleInboxChange("AllInbox")}
             >
-              <li>All Mails</li>
+              <li
+                style={{
+                  float: "left",
+                  margin: "10px",
+                  borderRight: "10px solid red",
+                  color: "red",
+                }}
+              >
+                <Button variant="outlined">Posteingang</Button>
+              </li>
             </Link>
             <Link
               to="/EmailClient/Bin"
               onClick={() => this.handleInboxChange("BinInbox")}
             >
-              <li>Bin</li>
+              <li
+                style={{
+                  float: "left",
+                  margin: "10px",
+                  borderRight: "10px solid red",
+                  listStyleType: "none",
+                  color: "red",
+                }}
+              >
+                <Button variant="outlined">Papierkorb</Button>
+              </li>
             </Link>
           </ul>
         </nav>
-        <div style={{ backgroundColor: "red", width: 1000, height: 50 }}>
-          <div>
-            <h1
-              style={{
-                color: "white",
-                textshadow: "5px 5px white",
-                textAlign: "center",
-                verticalAlign: "middle",
-              }}
-            >
-              Email Inbox{" "}
-              <EmailIcon
-                style={{
-                  verticalAlign: "middle",
-                }}
-              ></EmailIcon>
-            </h1>
-          </div>
-          {inbox}
-        </div>
+        {inbox}
       </div>
     );
   }

@@ -32,7 +32,7 @@ class BinInbox extends Component {
   render() {
     return (
       <div>
-        <h1>im BinInbox</h1>
+        <h1>Papierkorb</h1>
         <Sidebar
           Mails={this.state.binInbox}
           InboxType="BinInbox"
