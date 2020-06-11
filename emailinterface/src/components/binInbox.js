@@ -1,8 +1,5 @@
 import React, { Component } from "react";
 import Sidebar from "./sidebar.js";
-import Mail1 from "./mails/mail1";
-import Mail2 from "./mails/mail2";
-import Mail3 from "./mails/mail3";
 
 class BinInbox extends Component {
   state = { binInbox: [] };
@@ -21,12 +18,12 @@ class BinInbox extends Component {
   componentWillReceiveProps = () => {
     let inbox = [];
     this.props.Mails.map((email) => {
-      if (email.type === "AllInbox") {
+      if (email.type === "BinInbox") {
         inbox.push(email);
       }
     });
 
-    this.setState({ allInbox: inbox });
+    this.setState({ binInbox: inbox });
   };
 
   render() {
@@ -37,6 +34,7 @@ class BinInbox extends Component {
           Mails={this.state.binInbox}
           InboxType="BinInbox"
           onMoveToSpam={this.props.onMoveToSpam}
+          onMoveToBin={this.props.onMoveToBin}
         />
       </div>
     );

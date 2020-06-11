@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Sidebar from "./sidebar.js";
 
 class SpamInbox extends Component {
-  state = { allInbox: [] };
+  state = { spamInbox: [] };
 
   componentDidMount = () => {
     let inbox = [];
@@ -12,7 +12,7 @@ class SpamInbox extends Component {
       }
     });
 
-    this.setState({ allInbox: inbox });
+    this.setState({ spamInbox: inbox });
   };
 
   componentWillReceiveProps = () => {
@@ -23,14 +23,14 @@ class SpamInbox extends Component {
       }
     });
 
-    this.setState({ allInbox: inbox });
+    this.setState({ spamInbox: inbox });
   };
   render() {
     return (
       <div>
         <h1>Spam</h1>
         <Sidebar
-          Mails={this.state.allInbox}
+          Mails={this.state.spamInbox}
           inboxType="SpamInbox"
           onMoveToSpam={this.props.onMoveToSpam}
           onMoveToBin={this.props.onMoveToBin}

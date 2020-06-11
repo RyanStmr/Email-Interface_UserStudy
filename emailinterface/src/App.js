@@ -5,12 +5,14 @@ import StartPage from "./components/startPage.js";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 function App() {
-  let username = "max mustermann";
-  let emailAdress = "max_mustermann@example.com";
+  let userInfo = {
+    userName: "max mustermann",
+    emailAdress: "max_mustermann@example.com",
+  };
 
   const updateUserInfo = (adress, name) => {
-    username = name;
-    emailAdress = adress;
+    userInfo.userName = name;
+    userInfo.emailAdress = adress;
   };
 
   return (
@@ -24,7 +26,7 @@ function App() {
         <Route
           path="/EmailClient"
           render={() => (
-            <EmailClient emailAdress={emailAdress} userName={username} />
+            <EmailClient UserInfo={userInfo}></EmailClient> //emailAdress={emailAdress} userName={username} />
           )}
         />
       </Switch>

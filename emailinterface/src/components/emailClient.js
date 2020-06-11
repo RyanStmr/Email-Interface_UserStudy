@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import Sidebar from "./sidebar.js";
-import EmailIcon from "@material-ui/icons/Email";
 import Mail1 from "./mails/mail1";
 import Mail2 from "./mails/mail2";
 import Mail3 from "./mails/mail3";
@@ -12,14 +10,14 @@ import Button from "@material-ui/core/Button";
 
 class EmailClient extends Component {
   state = {
-    currentInbox: "AllInbox",
+    currentInbox: "",
     currentEmail: 0,
     inbox: [
       { mail: Mail1, id: 1, title: "Ruderer T.", type: "AllInbox" },
       { mail: Mail2, id: 2, title: "Check 24.", type: "AllInbox" },
       { mail: Mail3, id: 3, title: "Email 3", type: "AllInbox" },
-      { mail: Mail1, id: 4, title: "Email 4", type: "AllInbox" },
-      { mail: Mail2, id: 5, title: "Email 5", type: "AllInbox" },
+      { mail: Mail1, id: 4, title: "Email 4", type: "SpamInbox" },
+      { mail: Mail2, id: 5, title: "Email 5", type: "BinInbox" },
       { mail: Mail3, id: 6, title: "Email 6", type: "AllInbox" },
       { mail: Mail1, id: 7, title: "Email 7", type: "AllInbox" },
       { mail: Mail2, id: 8, title: "Email 8", type: "AllInbox" },
@@ -109,7 +107,6 @@ class EmailClient extends Component {
                 style={{
                   float: "left",
                   margin: "10px",
-                  borderRight: "10px solid red",
                   color: "red",
                 }}
               >
@@ -124,7 +121,6 @@ class EmailClient extends Component {
                 style={{
                   float: "left",
                   margin: "10px",
-                  borderRight: "10px solid red",
                   listStyleType: "none",
                   color: "red",
                 }}
@@ -140,7 +136,6 @@ class EmailClient extends Component {
                 style={{
                   float: "left",
                   margin: "10px",
-                  borderRight: "10px solid red",
                   listStyleType: "none",
                   color: "red",
                 }}
