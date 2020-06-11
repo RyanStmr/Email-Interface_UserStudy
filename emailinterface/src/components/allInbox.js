@@ -34,6 +34,7 @@ class AllInbox extends Component {
           Mails={this.state.allInbox}
           InboxType="AllInbox"
           onMoveToSpam={this.props.onMoveToSpam}
+          onMoveToBin={this.props.onMoveToBin}
         />
       </div>
     );

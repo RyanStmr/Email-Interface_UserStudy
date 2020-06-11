@@ -70,13 +70,6 @@ export default function VerticalTabs(props) {
     //props.onNewEmail(newValue);
   };
 
-  const reRender = () => {
-    console.log("rendering new");
-  };
-
-  const respondeMail = () => {};
-  const deleteMail = () => {};
-
   return (
     <div>
       <div style={{ backgroundColor: "red", width: 1000, height: 50 }}>
@@ -131,8 +124,6 @@ export default function VerticalTabs(props) {
                   variant="contained"
                   onClick={() => {
                     props.onMoveToSpam(email.id);
-
-                    reRender();
                   }}
                   style={{
                     color: "red",
@@ -144,29 +135,27 @@ export default function VerticalTabs(props) {
                 </Button>
                 <Button
                   variant="contained"
-                  onClick={() =>
-                    props.onRespondeMail(props.Mails.indexOf(email))
-                  }
+                  onClick={() => {
+                    props.onMoveToBin(email.id);
+                  }}
                   style={{
                     color: "red",
                     backgroundColor: "white",
                     margin: "3px",
                   }}
-                  disabled
                 >
                   Respond
                 </Button>
                 <Button
                   variant="contained"
-                  onClick={() =>
-                    props.onRespondeMail(props.Mails.indexOf(email))
-                  }
+                  onClick={() => {
+                    props.onMoveToBin(email.id);
+                  }}
                   style={{
                     color: "white",
                     backgroundColor: "red",
                     margin: "3px",
                   }}
-                  disabled
                 >
                   Delete
                 </Button>

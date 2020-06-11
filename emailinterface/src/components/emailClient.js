@@ -39,6 +39,16 @@ class EmailClient extends Component {
   onMoveToSpam = (emailID) => {
     let copy = this.state;
     copy.inbox.map((email) => {
+      if (email.id == emailID) email.type = "SpamInbox";
+    });
+
+    this.setState(copy);
+    this.forceUpdate();
+  };
+
+  onMoveToBin = (emailID) => {
+    let copy = this.state;
+    copy.inbox.map((email) => {
       if (email.id == emailID) email.type = "BinInbox";
     });
 
@@ -53,14 +63,6 @@ class EmailClient extends Component {
     this.setState(copy);
   };
 
-  createVirtualInbox = (inboxType) => {
-    let virtualInbox = [];
-    this.state.map((email) => {
-      if (email.type === inboxType) virtualInbox.push(email);
-    });
-    return virtualInbox;
-  };
-
   render() {
     const currentInbox = this.state.currentInbox;
     let inbox;
@@ -70,6 +72,7 @@ class EmailClient extends Component {
         <BinInbox
           Mails={this.state.inbox}
           onMoveToSpam={this.onMoveToSpam}
+          onMoveToBin={this.onMoveToBin}
         ></BinInbox>
       );
     } else if (currentInbox === "AllInbox") {
@@ -77,6 +80,7 @@ class EmailClient extends Component {
         <AllInbox
           Mails={this.state.inbox}
           onMoveToSpam={this.onMoveToSpam}
+          onMoveToBin={this.onMoveToBin}
         ></AllInbox>
       );
     } else if (currentInbox === "SpamInbox") {
@@ -84,6 +88,7 @@ class EmailClient extends Component {
         <SpamInbox
           Mails={this.state.inbox}
           onMoveToSpam={this.onMoveToSpam}
+          onMoveToBin={this.onMoveToBin}
         ></SpamInbox>
       );
     } else {
@@ -125,6 +130,22 @@ class EmailClient extends Component {
                 }}
               >
                 <Button variant="outlined">Papierkorb</Button>
+              </li>
+            </Link>
+            <Link
+              to="/EmailClient/Spam"
+              onClick={() => this.handleInboxChange("SpamInbox")}
+            >
+              <li
+                style={{
+                  float: "left",
+                  margin: "10px",
+                  borderRight: "10px solid red",
+                  listStyleType: "none",
+                  color: "red",
+                }}
+              >
+                <Button variant="outlined">Spam</Button>
               </li>
             </Link>
           </ul>
