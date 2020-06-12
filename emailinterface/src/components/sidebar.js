@@ -7,6 +7,7 @@ import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
 import EmailIcon from "@material-ui/icons/Email";
+import EmailWindow from "./emailWindow";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -113,6 +114,7 @@ export default function VerticalTabs(props) {
 
           return (
             <TabPanel value={value} index={props.Mails.indexOf(email)}>
+              <EmailWindow></EmailWindow>
               <SpecificEmail
                 userName={props.userName}
                 emailAdress={props.emailAdress}
