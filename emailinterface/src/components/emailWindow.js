@@ -1,9 +1,10 @@
 import React, { Component } from "react";
+import Mail1 from "./mails/mail1";
 
 class EmailWindow extends Component {
   state = {};
   render() {
-    return <h1>hello</h1>;
+    return <div></div>;
   }
 }
 

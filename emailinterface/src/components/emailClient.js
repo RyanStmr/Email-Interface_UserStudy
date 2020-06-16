@@ -7,10 +7,13 @@ import AllInbox from "./allInbox";
 import SpamInbox from "./spamInbox";
 import BinInbox from "./binInbox";
 import Button from "@material-ui/core/Button";
+import DeleteIcon from "@material-ui/icons/Delete";
+import ErrorIcon from "@material-ui/icons/Error";
+import InboxIcon from "@material-ui/icons/Inbox";
 
 class EmailClient extends Component {
   state = {
-    currentInbox: "",
+    currentInbox: "AllInbox",
     currentEmail: 0,
     inbox: [
       { mail: Mail1, id: 1, title: "Ruderer T.", type: "AllInbox" },
@@ -110,7 +113,13 @@ class EmailClient extends Component {
                   color: "red",
                 }}
               >
-                <Button variant="outlined">Posteingang</Button>
+                <Button
+                  variant="outlined"
+                  startIcon={<InboxIcon />}
+                  style={{ color: this.state }}
+                >
+                  Posteingang
+                </Button>
               </li>
             </Link>
             <Link
@@ -125,7 +134,9 @@ class EmailClient extends Component {
                   color: "red",
                 }}
               >
-                <Button variant="outlined">Papierkorb</Button>
+                <Button variant="outlined" startIcon={<DeleteIcon />}>
+                  Papierkorb
+                </Button>
               </li>
             </Link>
             <Link
@@ -140,7 +151,9 @@ class EmailClient extends Component {
                   color: "red",
                 }}
               >
-                <Button variant="outlined">Spam</Button>
+                <Button variant="outlined" startIcon={<ErrorIcon />}>
+                  Spam
+                </Button>
               </li>
             </Link>
           </ul>
