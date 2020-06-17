@@ -1,10 +1,13 @@
 import React, { Component } from "react";
-import Mail1 from "./mails/mail1";
-
+import Respondfield from "./respondfield";
 class EmailWindow extends Component {
   state = {};
   render() {
-    return <div></div>;
+    return (
+      <div>
+        <Respondfield Response={this.props.Response}></Respondfield>
+      </div>
+    );
   }
 }
 

@@ -6,7 +6,6 @@ import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
-import EmailIcon from "@material-ui/icons/Email";
 import EmailWindow from "./emailWindow";
 import DeleteIcon from "@material-ui/icons/Delete";
 import CreateIcon from "@material-ui/icons/Create";
@@ -48,25 +47,36 @@ function a11yProps(index) {
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    backgroundColor: "white",
+    backgroundColor: "#f2f3f2",
     display: "flex",
     height: 500,
   },
   tabs: {
-    borderRight: `1px solid ${theme.palette.divider}`,
+    borderRight: `2px solid ${theme.palette.divider}`,
   },
 }));
 
 export default function VerticalTabs(props) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
+  const [respond, setResponse] = React.useState(false);
+  const [answer, setAnswer] = React.useState("");
 
   var styles = {
     buttonsSidebar: {
-      color: "red",
-      backgroundColor: "white",
-      margin: "3px",
+      color: "#f2f3f2",
+      backgroundColor: "#ff5353",
+      margin: "10px",
     },
+  };
+
+  const handleResponse = () => {
+    setResponse(!respond);
+  };
+
+  const handleNewResponse = (textContent) => {
+    answer = textContent;
+    console.log(textContent);
   };
 
   const handleChange = (event, newValue) => {
@@ -125,11 +135,11 @@ export default function VerticalTabs(props) {
 
           return (
             <TabPanel value={value} index={props.Mails.indexOf(email)}>
-              <EmailWindow value={3}></EmailWindow>
               <SpecificEmail
                 userName={props.userName}
                 emailAdress={props.emailAdress}
               ></SpecificEmail>
+              <h1>{email.response}</h1>
               <div>
                 <Button
                   startIcon={<ErrorIcon />}
@@ -146,7 +156,7 @@ export default function VerticalTabs(props) {
                   startIcon={<CreateIcon />}
                   variant="contained"
                   onClick={() => {
-                    props.onMoveToBin(email.id);
+                    handleResponse(respond);
                   }}
                 >
                   Respond
@@ -162,6 +172,15 @@ export default function VerticalTabs(props) {
                   Delete
                 </Button>
               </div>
+              {respond && (
+                <div>
+                  <EmailWindow
+                    Response={(textContent) => {
+                      props.Response(email.id, textContent);
+                    }}
+                  ></EmailWindow>
+                </div>
+              )}
             </TabPanel>
           );
         })}

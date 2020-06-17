@@ -28,12 +28,13 @@ class SpamInbox extends Component {
   render() {
     return (
       <div>
-        <h1>Spam</h1>
+        <h2>Spam ({this.state.spamInbox.length})</h2>
         <Sidebar
           Mails={this.state.spamInbox}
           inboxType="SpamInbox"
           onMoveToSpam={this.props.onMoveToSpam}
           onMoveToBin={this.props.onMoveToBin}
+          Response={this.props.Response}
         />
       </div>
     );

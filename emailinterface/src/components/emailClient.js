@@ -16,18 +16,48 @@ class EmailClient extends Component {
     currentInbox: "AllInbox",
     currentEmail: 0,
     inbox: [
-      { mail: Mail1, id: 1, title: "Ruderer T.", type: "AllInbox" },
-      { mail: Mail2, id: 2, title: "Check 24.", type: "AllInbox" },
-      { mail: Mail3, id: 3, title: "Email 3", type: "AllInbox" },
-      { mail: Mail1, id: 4, title: "Email 4", type: "SpamInbox" },
-      { mail: Mail2, id: 5, title: "Email 5", type: "BinInbox" },
-      { mail: Mail3, id: 6, title: "Email 6", type: "AllInbox" },
-      { mail: Mail1, id: 7, title: "Email 7", type: "AllInbox" },
-      { mail: Mail2, id: 8, title: "Email 8", type: "AllInbox" },
-      { mail: Mail3, id: 9, title: "Email 9", type: "AllInbox" },
-      { mail: Mail1, id: 10, title: "Email 10", type: "AllInbox" },
-      { mail: Mail2, id: 11, title: "Email 11", type: "AllInbox" },
-      { mail: Mail3, id: 12, title: "Email 12", type: "AllInbox" },
+      {
+        mail: Mail1,
+        id: 1,
+        title: "Ruderer T.",
+        type: "AllInbox",
+        response: "",
+      },
+      {
+        mail: Mail2,
+        id: 2,
+        title: "Check 24.",
+        type: "AllInbox",
+        response: "",
+      },
+      { mail: Mail3, id: 3, title: "Email 3", type: "AllInbox", response: "" },
+      { mail: Mail1, id: 4, title: "Email 4", type: "SpamInbox", response: "" },
+      { mail: Mail2, id: 5, title: "Email 5", type: "BinInbox", response: "" },
+      { mail: Mail3, id: 6, title: "Email 6", type: "AllInbox", response: "" },
+      { mail: Mail1, id: 7, title: "Email 7", type: "AllInbox", response: "" },
+      { mail: Mail2, id: 8, title: "Email 8", type: "AllInbox", response: "" },
+      { mail: Mail3, id: 9, title: "Email 9", type: "AllInbox", response: "" },
+      {
+        mail: Mail1,
+        id: 10,
+        title: "Email 10",
+        type: "AllInbox",
+        response: "",
+      },
+      {
+        mail: Mail2,
+        id: 11,
+        title: "Email 11",
+        type: "AllInbox",
+        response: "",
+      },
+      {
+        mail: Mail3,
+        id: 12,
+        title: "Email 12",
+        type: "AllInbox",
+        response: "",
+      },
     ],
   };
 
@@ -35,6 +65,17 @@ class EmailClient extends Component {
     let copy = this.state;
     copy.currentEmail = emailNr;
     this.setState(copy);
+  };
+
+  hanldeResponse = (emailID, textContent) => {
+    let copy = this.state;
+    copy.inbox.map((email) => {
+      if (email.id == emailID) email.response = textContent;
+      console.log(`sent ${textContent}`);
+    });
+
+    this.setState(copy);
+    this.forceUpdate();
   };
 
   onMoveToSpam = (emailID) => {
@@ -74,6 +115,7 @@ class EmailClient extends Component {
           Mails={this.state.inbox}
           onMoveToSpam={this.onMoveToSpam}
           onMoveToBin={this.onMoveToBin}
+          Response={this.hanldeResponse}
         ></BinInbox>
       );
     } else if (currentInbox === "AllInbox") {
@@ -82,6 +124,7 @@ class EmailClient extends Component {
           Mails={this.state.inbox}
           onMoveToSpam={this.onMoveToSpam}
           onMoveToBin={this.onMoveToBin}
+          Response={this.hanldeResponse}
         ></AllInbox>
       );
     } else if (currentInbox === "SpamInbox") {
@@ -90,13 +133,17 @@ class EmailClient extends Component {
           Mails={this.state.inbox}
           onMoveToSpam={this.onMoveToSpam}
           onMoveToBin={this.onMoveToBin}
+          Response={this.hanldeResponse}
         ></SpamInbox>
       );
     } else {
     }
 
     return (
-      <div>
+      <div style={{ backgroundColor: "#ececeb", width: "1000px" }}>
+        <h2 style={{ textAlign: "center" }}>
+          {this.props.UserInfo.userName}s Inbox
+        </h2>
         <nav>
           <ul
             className="nav-links"
@@ -110,7 +157,7 @@ class EmailClient extends Component {
                 style={{
                   float: "left",
                   margin: "10px",
-                  color: "red",
+                  listStyleType: "none",
                 }}
               >
                 <Button
@@ -131,7 +178,6 @@ class EmailClient extends Component {
                   float: "left",
                   margin: "10px",
                   listStyleType: "none",
-                  color: "red",
                 }}
               >
                 <Button variant="outlined" startIcon={<DeleteIcon />}>
@@ -148,7 +194,6 @@ class EmailClient extends Component {
                   float: "left",
                   margin: "10px",
                   listStyleType: "none",
-                  color: "red",
                 }}
               >
                 <Button variant="outlined" startIcon={<ErrorIcon />}>

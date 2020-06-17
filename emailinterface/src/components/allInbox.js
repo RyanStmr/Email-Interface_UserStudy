@@ -29,12 +29,13 @@ class AllInbox extends Component {
   render() {
     return (
       <div>
-        <h1>Gesamte Posteingang</h1>
+        <h1>Gesamte Posteingang ({this.state.allInbox.length})</h1>
         <Sidebar
           Mails={this.state.allInbox}
           InboxType="AllInbox"
           onMoveToSpam={this.props.onMoveToSpam}
           onMoveToBin={this.props.onMoveToBin}
+          Response={this.props.Response}
         />
       </div>
     );

@@ -29,12 +29,13 @@ class BinInbox extends Component {
   render() {
     return (
       <div>
-        <h1>Papierkorb</h1>
+        <h1>Papierkorb ({this.state.binInbox.length})</h1>
         <Sidebar
           Mails={this.state.binInbox}
           InboxType="BinInbox"
           onMoveToSpam={this.props.onMoveToSpam}
           onMoveToBin={this.props.onMoveToBin}
+          Response={this.props.Response}
         />
       </div>
     );
