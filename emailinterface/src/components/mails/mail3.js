@@ -5,7 +5,7 @@ class Mail3 extends Component {
   render() {
     return (
       <React.Fragment>
-        <div className="Mail3">
+        <div className="Mail3" style={{ width: "300px" }}>
           <head>
             <title></title>
           </head>

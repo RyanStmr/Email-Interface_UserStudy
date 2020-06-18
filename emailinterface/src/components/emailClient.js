@@ -1,7 +1,4 @@
 import React, { Component } from "react";
-import Mail1 from "./mails/mail1";
-import Mail2 from "./mails/mail2";
-import Mail3 from "./mails/mail3";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import AllInbox from "./allInbox";
 import SpamInbox from "./spamInbox";
@@ -10,55 +7,17 @@ import Button from "@material-ui/core/Button";
 import DeleteIcon from "@material-ui/icons/Delete";
 import ErrorIcon from "@material-ui/icons/Error";
 import InboxIcon from "@material-ui/icons/Inbox";
+import EmailIcon from "@material-ui/icons/Email";
+import Inbox from "./constants.js";
+import Badge from "@material-ui/core/Badge";
+import "./EmailClient.css";
 
 class EmailClient extends Component {
   state = {
     currentInbox: "AllInbox",
     currentEmail: 0,
-    inbox: [
-      {
-        mail: Mail1,
-        id: 1,
-        title: "Ruderer T.",
-        type: "AllInbox",
-        response: "",
-      },
-      {
-        mail: Mail2,
-        id: 2,
-        title: "Check 24.",
-        type: "AllInbox",
-        response: "",
-      },
-      { mail: Mail3, id: 3, title: "Email 3", type: "AllInbox", response: "" },
-      { mail: Mail1, id: 4, title: "Email 4", type: "SpamInbox", response: "" },
-      { mail: Mail2, id: 5, title: "Email 5", type: "BinInbox", response: "" },
-      { mail: Mail3, id: 6, title: "Email 6", type: "AllInbox", response: "" },
-      { mail: Mail1, id: 7, title: "Email 7", type: "AllInbox", response: "" },
-      { mail: Mail2, id: 8, title: "Email 8", type: "AllInbox", response: "" },
-      { mail: Mail3, id: 9, title: "Email 9", type: "AllInbox", response: "" },
-      {
-        mail: Mail1,
-        id: 10,
-        title: "Email 10",
-        type: "AllInbox",
-        response: "",
-      },
-      {
-        mail: Mail2,
-        id: 11,
-        title: "Email 11",
-        type: "AllInbox",
-        response: "",
-      },
-      {
-        mail: Mail3,
-        id: 12,
-        title: "Email 12",
-        type: "AllInbox",
-        response: "",
-      },
-    ],
+    inbox: Inbox,
+    mailNrBadge: Inbox.length,
   };
 
   handleEmailChange = (emailNr) => {
@@ -70,8 +29,41 @@ class EmailClient extends Component {
   hanldeResponse = (emailID, textContent) => {
     let copy = this.state;
     copy.inbox.map((email) => {
-      if (email.id == emailID) email.response = textContent;
-      console.log(`sent ${textContent}`);
+      if (email.id === emailID) {
+        email.response = textContent;
+        console.log(textContent);
+
+        //Create Mail Component to put into Conversation
+        let tempDate = new Date();
+        var date =
+          tempDate.getHours() +
+          ":" +
+          tempDate.getMinutes() +
+          " am " +
+          tempDate.getDate() +
+          "." +
+          (tempDate.getMonth() + 1) +
+          "." +
+          tempDate.getFullYear();
+
+        const NewResponse = () => (
+          <div
+            style={{
+              backgroundColor: "#ff5353",
+              opacity: "0.9",
+              width: "500px",
+              wordBreak: "break-word",
+            }}
+          >
+            <p style={{ backgroundColor: "white", padding: "10px" }}>
+              Geantwortet um {date}
+            </p>
+            <p style={{ fontSize: "12px", padding: "10px" }}>{textContent}</p>
+          </div>
+        );
+
+        email.conversation.push(NewResponse);
+      }
     });
 
     this.setState(copy);
@@ -81,11 +73,12 @@ class EmailClient extends Component {
   onMoveToSpam = (emailID) => {
     let copy = this.state;
     copy.inbox.map((email) => {
-      if (email.id == emailID) email.type = "SpamInbox";
+      if (email.id === emailID) email.type = "SpamInbox";
     });
 
     this.setState(copy);
     this.forceUpdate();
+    this.countEmails();
   };
 
   onMoveToBin = (emailID) => {
@@ -96,12 +89,27 @@ class EmailClient extends Component {
 
     this.setState(copy);
     this.forceUpdate();
+    this.countEmails();
+  };
+
+  countEmails = () => {
+    let counter = 0;
+    console.log("called");
+
+    this.state.inbox.forEach((element) => {
+      counter = element.type === "AllInbox" ? counter + 1 : counter;
+    });
+    let copy = this.state;
+    copy.mailNrBadge = counter;
+
+    this.setState(copy);
   };
 
   handleInboxChange = (whichInbox) => {
     console.log(whichInbox);
     let copy = this.state;
     copy.currentInbox = whichInbox;
+    copy.currentEmail = undefined;
     this.setState(copy);
   };
 
@@ -116,6 +124,7 @@ class EmailClient extends Component {
           onMoveToSpam={this.onMoveToSpam}
           onMoveToBin={this.onMoveToBin}
           Response={this.hanldeResponse}
+          onNewEmail={this.handleEmailChange}
         ></BinInbox>
       );
     } else if (currentInbox === "AllInbox") {
@@ -125,6 +134,7 @@ class EmailClient extends Component {
           onMoveToSpam={this.onMoveToSpam}
           onMoveToBin={this.onMoveToBin}
           Response={this.hanldeResponse}
+          onNewEmail={this.handleEmailChange}
         ></AllInbox>
       );
     } else if (currentInbox === "SpamInbox") {
@@ -134,53 +144,45 @@ class EmailClient extends Component {
           onMoveToSpam={this.onMoveToSpam}
           onMoveToBin={this.onMoveToBin}
           Response={this.hanldeResponse}
+          onNewEmail={this.handleEmailChange}
         ></SpamInbox>
       );
     } else {
     }
 
     return (
-      <div style={{ backgroundColor: "#ececeb", width: "1000px" }}>
-        <h2 style={{ textAlign: "center" }}>
-          {this.props.UserInfo.userName}s Inbox
-        </h2>
-        <nav>
-          <ul
-            className="nav-links"
-            style={{ display: "left", listStyleType: "none" }}
-          >
+      <div className="entireClient">
+        <div className="HeaderInfo">
+          <p>Welcome to your Inbox, {this.props.UserInfo.userName}</p>
+          <EmailIcon className="EmailIcon" fontSize="large"></EmailIcon>
+          <h1 style={{ marginLeft: "10px", alignSelf: "center" }}>
+            Email Client
+          </h1>
+        </div>
+        <nav style={{ alignItems: "center" }}>
+          <ul className="nav-links">
             <Link
               to="/EmailClient/AllMails"
               onClick={() => this.handleInboxChange("AllInbox")}
             >
-              <li
-                style={{
-                  float: "left",
-                  margin: "10px",
-                  listStyleType: "none",
-                }}
-              >
-                <Button
-                  variant="outlined"
-                  startIcon={<InboxIcon />}
-                  style={{ color: this.state }}
-                >
-                  Posteingang
-                </Button>
+              <li className="button-links">
+                <Badge badgeContent={this.state.mailNrBadge} color="error">
+                  <Button
+                    variant="contained"
+                    color="white"
+                    startIcon={<InboxIcon />}
+                  >
+                    Posteingang
+                  </Button>
+                </Badge>
               </li>
             </Link>
             <Link
               to="/EmailClient/Bin"
               onClick={() => this.handleInboxChange("BinInbox")}
             >
-              <li
-                style={{
-                  float: "left",
-                  margin: "10px",
-                  listStyleType: "none",
-                }}
-              >
-                <Button variant="outlined" startIcon={<DeleteIcon />}>
+              <li className="button-links">
+                <Button variant="contained" color="" startIcon={<DeleteIcon />}>
                   Papierkorb
                 </Button>
               </li>
@@ -189,14 +191,12 @@ class EmailClient extends Component {
               to="/EmailClient/Spam"
               onClick={() => this.handleInboxChange("SpamInbox")}
             >
-              <li
-                style={{
-                  float: "left",
-                  margin: "10px",
-                  listStyleType: "none",
-                }}
-              >
-                <Button variant="outlined" startIcon={<ErrorIcon />}>
+              <li className="button-links">
+                <Button
+                  variant="contained"
+                  color="white"
+                  startIcon={<ErrorIcon />}
+                >
                   Spam
                 </Button>
               </li>

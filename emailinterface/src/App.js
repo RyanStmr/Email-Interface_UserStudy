@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 function App() {
   let userInfo = {
-    userName: "max mustermann",
+    userName: "Thomas Schreiner",
     emailAdress: "max_mustermann@example.com",
   };
 

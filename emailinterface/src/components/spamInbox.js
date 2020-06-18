@@ -28,13 +28,16 @@ class SpamInbox extends Component {
   render() {
     return (
       <div>
-        <h2>Spam ({this.state.spamInbox.length})</h2>
+        <h3 style={{ float: "right", paddingRight: "40px", color: "white" }}>
+          Spam ({this.state.spamInbox.length})
+        </h3>
         <Sidebar
           Mails={this.state.spamInbox}
           inboxType="SpamInbox"
           onMoveToSpam={this.props.onMoveToSpam}
           onMoveToBin={this.props.onMoveToBin}
           Response={this.props.Response}
+          onNewEmail={this.props.onNewEmail}
         />
       </div>
     );

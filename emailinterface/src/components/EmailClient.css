@@ -1,0 +1,31 @@
+.nav-links {
+  display: center;
+  list-style-type: none;
+}
+
+.EmailIcon {
+  margin-top: 10px;
+  margin-left: 30px;
+  align-self: center;
+}
+
+.button-links {
+  float: left;
+  margin: 5px;
+  list-style-type: none;
+}
+
+.HeaderInfo {
+  text-align: left;
+  color: white;
+  padding-left: 10px;
+  display: flex;
+  align-self: center;
+  height: 30px;
+}
+
+.entireClient {
+  background-color: #ff5353;
+  width: 1000px;
+  height: 700px;
+}

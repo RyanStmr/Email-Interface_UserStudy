@@ -5,6 +5,11 @@ class EmailWindow extends Component {
   render() {
     return (
       <div>
+        {this.props.Email.conversation.map((conversationPart) => {
+          const ConversationPart = conversationPart;
+          return <ConversationPart></ConversationPart>;
+        })}
+
         <Respondfield Response={this.props.Response}></Respondfield>
       </div>
     );
@@ -12,3 +17,4 @@ class EmailWindow extends Component {
 }
 
 export default EmailWindow;
+//<p>{this.props.Email.response}</p>

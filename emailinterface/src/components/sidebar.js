@@ -48,8 +48,8 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     backgroundColor: "#f2f3f2",
-    display: "flex",
-    height: 500,
+    display: "inline-flex",
+    height: 700,
   },
   tabs: {
     borderRight: `2px solid ${theme.palette.divider}`,
@@ -58,9 +58,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function VerticalTabs(props) {
   const classes = useStyles();
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = React.useState(undefined);
   const [respond, setResponse] = React.useState(false);
-  const [answer, setAnswer] = React.useState("");
 
   var styles = {
     buttonsSidebar: {
@@ -74,11 +73,6 @@ export default function VerticalTabs(props) {
     setResponse(!respond);
   };
 
-  const handleNewResponse = (textContent) => {
-    answer = textContent;
-    console.log(textContent);
-  };
-
   const handleChange = (event, newValue) => {
     setValue(newValue);
 
@@ -87,7 +81,13 @@ export default function VerticalTabs(props) {
   };
   //hand over current Email into sidebar props for Ryan x)
   const passNewValue = (newValue) => {
-    //props.onNewEmail(newValue);
+    let selectedEmailID = props.Mails[newValue].id;
+    props.onNewEmail(selectedEmailID);
+  };
+
+  const resetSelectedTab = () => {
+    setValue(undefined);
+    props.onNewEmail(undefined);
   };
 
   return (
@@ -119,6 +119,7 @@ export default function VerticalTabs(props) {
           onChange={handleChange}
           aria-label="Vertical tabs example"
           className={classes.tabs}
+          style={{ width: "200px" }}
         >
           {props.Mails.map((email) => {
             return (
@@ -139,7 +140,6 @@ export default function VerticalTabs(props) {
                 userName={props.userName}
                 emailAdress={props.emailAdress}
               ></SpecificEmail>
-              <h1>{email.response}</h1>
               <div>
                 <Button
                   startIcon={<ErrorIcon />}
@@ -147,6 +147,7 @@ export default function VerticalTabs(props) {
                   variant="contained"
                   onClick={() => {
                     props.onMoveToSpam(email.id);
+                    resetSelectedTab();
                   }}
                 >
                   Move to Spam
@@ -167,6 +168,7 @@ export default function VerticalTabs(props) {
                   variant="contained"
                   onClick={() => {
                     props.onMoveToBin(email.id);
+                    resetSelectedTab();
                   }}
                 >
                   Delete
@@ -178,6 +180,7 @@ export default function VerticalTabs(props) {
                     Response={(textContent) => {
                       props.Response(email.id, textContent);
                     }}
+                    Email={email}
                   ></EmailWindow>
                 </div>
               )}

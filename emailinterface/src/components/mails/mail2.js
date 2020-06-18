@@ -34,37 +34,7 @@ class Mail2 extends Component {
             <div></div>
           </div>
           <div></div>
-          <p>
-            UNITED STATES OF AMERICA LOTTO INC.
-            <br />
-            ADRESSE: LANDSDOWN
-            <br />
-            STADT: St NORTH BETHESDA
-            <br />
-            STATE/PROVINCE: MARYLAND
-            <br />
-            POSTCODE: 20852
-            <br />
-            LAND: USA
-            <br />
-            INC.
-            <br />
-            ********************
-            <br />
-            REF NR.:525743970
-            <br />
-            ************************
-            <br />
-            STAPEL NR.:6474869989/603
-            <br />
-            ************************
-            <br />
-            LOTTO GEWINNER
-            <br />
-            BETR.: ENDGULTIGE NOTIFIKATION
-            <br />
-            GLUCKWUNSCHE!
-          </p>
+
           <p>
             Die Vereinigten Staaten Lottery Inc: Wir sind erfreut, offiziell
             mitteilen zu können, dass Ihre E-Mail-Adresse ist die Summe von
@@ -132,23 +102,6 @@ class Mail2 extends Component {
             NOTIZ
             <br />
             ******************************
-            <br />
-            Registereintragung:
-            <br />
-            Amtsgericht Hamburg BDW 9243
-            <br />
-            Vorsitzender des Aufsichtsrats:
-            <br />
-            Dipl.-Ing. Dr.-Ing. E.h.
-            <br />
-            Sven IngelmannVorstand:
-            <br />
-            Peter Wilde <br />
-            (Vorsitzender)
-            <br />
-            Jochen Karl
-            <br />
-            Email anonymized{" "}
           </p>
         </div>
       </React.Fragment>

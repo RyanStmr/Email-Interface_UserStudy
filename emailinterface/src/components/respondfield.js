@@ -8,6 +8,13 @@ const useStyles = makeStyles((theme) => ({
     "& .MuiTextField-root": {
       margin: theme.spacing(2),
       width: "500px",
+      height: "100px",
+      float: "left",
+    },
+    "& .MuiOutlinedInput-root": {
+      "& fieldset": {
+        borderColor: "red",
+      },
     },
   },
 }));
@@ -24,23 +31,32 @@ export default function MultilineTextFields(props) {
     <form className={classes.root} noValidate autoComplete="off">
       <div>
         <TextField
-          id="outlined-multiline-static"
+          id="filled-secondary"
+          color="secondary"
           label="Response"
           multiline
           rows={4}
           defaultValue=""
-          variant="outlined"
+          variant="filled"
           onChange={handleChange}
         />
+        <div>
+          <Button
+            variant="contained"
+            onClick={() => {
+              props.Response(value);
+            }}
+            style={{
+              marginTop: "15px",
+              marginLeft: "25px",
+              color: "#f2f3f2",
+              backgroundColor: "#ff5353",
+            }}
+          >
+            Send
+          </Button>
+        </div>
       </div>
-      <Button
-        variant="contained"
-        onClick={() => {
-          props.Response(value);
-        }}
-      >
-        Send
-      </Button>
     </form>
   );
 }
