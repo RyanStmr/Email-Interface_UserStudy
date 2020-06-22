@@ -3,29 +3,28 @@
   list-style-type: none;
 }
 
-.EmailIcon {
-  margin-top: 10px;
-  margin-left: 30px;
-  align-self: center;
-}
-
 .button-links {
   float: left;
   margin: 5px;
+  padding-top: 10px;
   list-style-type: none;
 }
 
 .HeaderInfo {
-  text-align: left;
-  color: white;
-  padding-left: 10px;
+  color: rgb(255, 255, 255);
+  padding-left: 50px;
   display: flex;
-  align-self: center;
-  height: 30px;
+  justify-content: left;
+  height: 20px;
 }
 
 .entireClient {
   background-color: #ff5353;
   width: 1000px;
-  height: 700px;
+  height: 850px;
+  margin: 0 auto;
+}
+
+.NavBar {
+  height: 70px;
 }

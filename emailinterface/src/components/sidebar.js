@@ -5,11 +5,7 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
-import Button from "@material-ui/core/Button";
 import EmailWindow from "./emailWindow";
-import DeleteIcon from "@material-ui/icons/Delete";
-import CreateIcon from "@material-ui/icons/Create";
-import ErrorIcon from "@material-ui/icons/Error";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -46,10 +42,12 @@ function a11yProps(index) {
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    flexGrow: 1,
+    flexGrow: 0,
     backgroundColor: "#f2f3f2",
     display: "inline-flex",
     height: 700,
+    position: "fixed",
+    top: "120px",
   },
   tabs: {
     borderRight: `2px solid ${theme.palette.divider}`,
@@ -59,19 +57,6 @@ const useStyles = makeStyles((theme) => ({
 export default function VerticalTabs(props) {
   const classes = useStyles();
   const [value, setValue] = React.useState(undefined);
-  const [respond, setResponse] = React.useState(false);
-
-  var styles = {
-    buttonsSidebar: {
-      color: "#f2f3f2",
-      backgroundColor: "#ff5353",
-      margin: "10px",
-    },
-  };
-
-  const handleResponse = () => {
-    setResponse(!respond);
-  };
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -79,6 +64,7 @@ export default function VerticalTabs(props) {
     //added
     passNewValue(newValue);
   };
+
   //hand over current Email into sidebar props for Ryan x)
   const passNewValue = (newValue) => {
     let selectedEmailID = props.Mails[newValue].id;
@@ -111,7 +97,7 @@ export default function VerticalTabs(props) {
           </h1>
         </div>
             </div>*/}
-      <div className={classes.root} style={{ width: 1000 }}>
+      <div className={classes.root} style={{ width: "1000px" }}>
         <Tabs
           orientation="vertical"
           variant="scrollable"
@@ -119,12 +105,18 @@ export default function VerticalTabs(props) {
           onChange={handleChange}
           aria-label="Vertical tabs example"
           className={classes.tabs}
-          style={{ width: "200px" }}
+          style={{ width: "180px" }}
         >
           {props.Mails.map((email) => {
             return (
               <Tab
-                label={email.title}
+                style={{
+                  fontSize: "10px",
+                  height: "20px",
+                  fontFamily: "arial",
+                  width: "180px",
+                }}
+                label={`${email.title} ${email.id}${email.title} ${email.id}`}
                 {...a11yProps(props.Mails.indexOf(email))}
               />
             );
@@ -132,58 +124,26 @@ export default function VerticalTabs(props) {
         </Tabs>
 
         {props.Mails.map((email) => {
-          const SpecificEmail = email.mail;
-
           return (
             <TabPanel value={value} index={props.Mails.indexOf(email)}>
-              <SpecificEmail
-                userName={props.userName}
-                emailAdress={props.emailAdress}
-              ></SpecificEmail>
-              <div>
-                <Button
-                  startIcon={<ErrorIcon />}
-                  style={styles.buttonsSidebar}
-                  variant="contained"
-                  onClick={() => {
-                    props.onMoveToSpam(email.id);
-                    resetSelectedTab();
+              <div
+                style={{
+                  backgroundColor: "white",
+                  overflowWrap: "break-word",
+                }}
+              >
+                <EmailWindow
+                  emailAdress={props.Recipient}
+                  resetSelectedTab={resetSelectedTab}
+                  onNewEmail={props.onNewEmail}
+                  Response={(textContent) => {
+                    props.Response(email.id, textContent);
                   }}
-                >
-                  Move to Spam
-                </Button>
-                <Button
-                  style={styles.buttonsSidebar}
-                  startIcon={<CreateIcon />}
-                  variant="contained"
-                  onClick={() => {
-                    handleResponse(respond);
-                  }}
-                >
-                  Respond
-                </Button>
-                <Button
-                  style={styles.buttonsSidebar}
-                  startIcon={<DeleteIcon />}
-                  variant="contained"
-                  onClick={() => {
-                    props.onMoveToBin(email.id);
-                    resetSelectedTab();
-                  }}
-                >
-                  Delete
-                </Button>
+                  Email={email}
+                  onMoveToSpam={props.onMoveToSpam}
+                  onMoveToBin={props.onMoveToBin}
+                ></EmailWindow>
               </div>
-              {respond && (
-                <div>
-                  <EmailWindow
-                    Response={(textContent) => {
-                      props.Response(email.id, textContent);
-                    }}
-                    Email={email}
-                  ></EmailWindow>
-                </div>
-              )}
             </TabPanel>
           );
         })}

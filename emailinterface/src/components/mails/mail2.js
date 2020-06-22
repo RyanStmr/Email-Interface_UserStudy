@@ -5,9 +5,7 @@ class Mail2 extends Component {
   render() {
     return (
       <React.Fragment>
-        <div
-          style={{ width: 500, height: 400, fontSize: 7, textAlign: "left" }}
-        >
+        <div>
           <div>
             <p></p>
             <p></p>

@@ -11,7 +11,7 @@ import EmailIcon from "@material-ui/icons/Email";
 import Inbox from "./constants.js";
 import Badge from "@material-ui/core/Badge";
 import "./EmailClient.css";
-
+import ProfileBox from "./ProfileBox";
 class EmailClient extends Component {
   state = {
     currentInbox: "AllInbox",
@@ -125,6 +125,7 @@ class EmailClient extends Component {
           onMoveToBin={this.onMoveToBin}
           Response={this.hanldeResponse}
           onNewEmail={this.handleEmailChange}
+          Recipient={this.props.UserInfo.emailAdress}
         ></BinInbox>
       );
     } else if (currentInbox === "AllInbox") {
@@ -135,6 +136,7 @@ class EmailClient extends Component {
           onMoveToBin={this.onMoveToBin}
           Response={this.hanldeResponse}
           onNewEmail={this.handleEmailChange}
+          Recipient={this.props.UserInfo.emailAdress}
         ></AllInbox>
       );
     } else if (currentInbox === "SpamInbox") {
@@ -145,6 +147,7 @@ class EmailClient extends Component {
           onMoveToBin={this.onMoveToBin}
           Response={this.hanldeResponse}
           onNewEmail={this.handleEmailChange}
+          Recipient={this.props.UserInfo.emailAdress}
         ></SpamInbox>
       );
     } else {
@@ -152,57 +155,52 @@ class EmailClient extends Component {
 
     return (
       <div className="entireClient">
-        <div className="HeaderInfo">
-          <p>Welcome to your Inbox, {this.props.UserInfo.userName}</p>
-          <EmailIcon className="EmailIcon" fontSize="large"></EmailIcon>
-          <h1 style={{ marginLeft: "10px", alignSelf: "center" }}>
-            Email Client
-          </h1>
-        </div>
-        <nav style={{ alignItems: "center" }}>
-          <ul className="nav-links">
-            <Link
-              to="/EmailClient/AllMails"
-              onClick={() => this.handleInboxChange("AllInbox")}
-            >
-              <li className="button-links">
-                <Badge badgeContent={this.state.mailNrBadge} color="error">
+        <div className="NavBar">
+          <div className="HeaderInfo">
+            <p>Welcome to your Inbox, {this.props.UserInfo.userName}</p>
+          </div>
+          <nav>
+            <ul className="nav-links">
+              <Link
+                to="/EmailClient/AllMails"
+                onClick={() => this.handleInboxChange("AllInbox")}
+              >
+                <li className="button-links">
+                  <Badge badgeContent={this.state.mailNrBadge} color="error">
+                    <Button variant="contained" startIcon={<InboxIcon />}>
+                      Posteingang
+                    </Button>
+                  </Badge>
+                </li>
+              </Link>
+              <Link
+                to="/EmailClient/Bin"
+                onClick={() => this.handleInboxChange("BinInbox")}
+              >
+                <li className="button-links">
                   <Button
                     variant="contained"
-                    color="white"
-                    startIcon={<InboxIcon />}
+                    color=""
+                    startIcon={<DeleteIcon />}
                   >
-                    Posteingang
+                    Papierkorb
                   </Button>
-                </Badge>
-              </li>
-            </Link>
-            <Link
-              to="/EmailClient/Bin"
-              onClick={() => this.handleInboxChange("BinInbox")}
-            >
-              <li className="button-links">
-                <Button variant="contained" color="" startIcon={<DeleteIcon />}>
-                  Papierkorb
-                </Button>
-              </li>
-            </Link>
-            <Link
-              to="/EmailClient/Spam"
-              onClick={() => this.handleInboxChange("SpamInbox")}
-            >
-              <li className="button-links">
-                <Button
-                  variant="contained"
-                  color="white"
-                  startIcon={<ErrorIcon />}
-                >
-                  Spam
-                </Button>
-              </li>
-            </Link>
-          </ul>
-        </nav>
+                </li>
+              </Link>
+              <Link
+                to="/EmailClient/Spam"
+                onClick={() => this.handleInboxChange("SpamInbox")}
+              >
+                <li className="button-links">
+                  <Button variant="contained" startIcon={<ErrorIcon />}>
+                    Spam
+                  </Button>
+                </li>
+              </Link>
+              <ProfileBox></ProfileBox>
+            </ul>
+          </nav>
+        </div>
         {inbox}
       </div>
     );

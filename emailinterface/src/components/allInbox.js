@@ -28,10 +28,7 @@ class AllInbox extends Component {
 
   render() {
     return (
-      <div>
-        <h3 style={{ float: "right", paddingRight: "40px", color: "white" }}>
-          Gesamte Posteingang ({this.state.allInbox.length})
-        </h3>
+      <div style={{ position: "fixed", height: "762px" }}>
         <Sidebar
           Mails={this.state.allInbox}
           InboxType="AllInbox"
@@ -39,6 +36,7 @@ class AllInbox extends Component {
           onMoveToBin={this.props.onMoveToBin}
           Response={this.props.Response}
           onNewEmail={this.props.onNewEmail}
+          Recipient={this.props.Recipient}
         />
       </div>
     );
