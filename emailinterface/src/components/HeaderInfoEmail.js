@@ -12,16 +12,18 @@ class HeaderInfoEmail extends Component {
           <Avatar
             style={{
               backgroundColor: deepOrange[500],
+              top: "20px",
+              marginLeft: "10px",
             }}
           >
-            {this.props.Email.id}
+            {this.props.Email.capital}
           </Avatar>
         </div>
         <div>
-          <p className="HeaderText">From: {this.props.Email.title} </p>
+          <p className="HeaderText">From: {this.props.Email.sender} </p>
           <p className="HeaderText"> To: {this.props.emailAdress} </p>
-          <p className="HeaderText">Date: {this.props.emailAdress}</p>
-          <p className="HeaderText">Subject: {this.props.emailAdress}</p>
+          <p className="HeaderText">Date: {this.props.Email.date}</p>
+          <p className="HeaderText">Subject: {this.props.Email.subject}</p>
         </div>
       </div>
     );

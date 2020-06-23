@@ -67,8 +67,12 @@ export default function VerticalTabs(props) {
 
   //hand over current Email into sidebar props for Ryan x)
   const passNewValue = (newValue) => {
-    let selectedEmailID = props.Mails[newValue].id;
-    props.onNewEmail(selectedEmailID);
+    if (newValue > props.Mails.length - 1 || newValue < 0) {
+      props.onNewEmail(undefined);
+    } else {
+      let selectedEmailID = props.Mails[newValue].id;
+      props.onNewEmail(selectedEmailID);
+    }
   };
 
   const resetSelectedTab = () => {
@@ -76,27 +80,20 @@ export default function VerticalTabs(props) {
     props.onNewEmail(undefined);
   };
 
+  const forwardSelectedTab = () => {
+    let newTab = value + 1;
+    setValue(newTab);
+    passNewValue(newTab);
+  };
+
+  const backSelectedTab = () => {
+    let newTab = value - 1;
+    setValue(newTab);
+    passNewValue(newTab);
+  };
+
   return (
     <div>
-      {/*<div style={{ backgroundColor: "red", width: 1000, height: 50 }}>
-        <div>
-          <h1
-            style={{
-              color: "white",
-              textshadow: "5px 5px white",
-              textAlign: "center",
-              verticalAlign: "middle",
-            }}
-          >
-            Email Inbox{" "}
-            <EmailIcon
-              style={{
-                verticalAlign: "middle",
-              }}
-            ></EmailIcon>
-          </h1>
-        </div>
-            </div>*/}
       <div className={classes.root} style={{ width: "1000px" }}>
         <Tabs
           orientation="vertical"
@@ -112,11 +109,11 @@ export default function VerticalTabs(props) {
               <Tab
                 style={{
                   fontSize: "10px",
-                  height: "20px",
+                  height: "50px",
                   fontFamily: "arial",
                   width: "180px",
                 }}
-                label={`${email.title} ${email.id}${email.title} ${email.id}`}
+                label={`${email.sender} ${email.subject}`}
                 {...a11yProps(props.Mails.indexOf(email))}
               />
             );
@@ -142,6 +139,8 @@ export default function VerticalTabs(props) {
                   Email={email}
                   onMoveToSpam={props.onMoveToSpam}
                   onMoveToBin={props.onMoveToBin}
+                  onMoveEmailForward={forwardSelectedTab}
+                  onMoveEmailBackward={backSelectedTab}
                 ></EmailWindow>
               </div>
             </TabPanel>

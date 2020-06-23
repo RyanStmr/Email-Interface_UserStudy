@@ -1,16 +1,42 @@
 import React, { Component } from "react";
-import DeleteIcon from "@material-ui/icons/Delete";
-import CreateIcon from "@material-ui/icons/Create";
-import ErrorIcon from "@material-ui/icons/Error";
+
 import Button from "@material-ui/core/Button";
+import BookmarkIcon from "@material-ui/icons/Bookmark";
+import FlagIcon from "@material-ui/icons/Flag";
+import InfoIcon from "@material-ui/icons/Info";
+import RefreshIcon from "@material-ui/icons/Refresh";
+import WidgetsIcon from "@material-ui/icons/Widgets";
+import LabelIcon from "@material-ui/icons/Label";
+import LabelOffIcon from "@material-ui/icons/LabelOff";
+import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight";
+import KeyboardArrowLeftIcon from "@material-ui/icons/KeyboardArrowLeft";
+import PrintIcon from "@material-ui/icons/Print";
+import { Snackbar } from "@material-ui/core";
 
 class EmailTopBar extends Component {
-  state = {};
+  state = {
+    printOpen: false,
+  };
+
   render() {
+    const handleClick = () => {
+      this.setState({ printOpen: true });
+    };
+
+    const handleClose = () => {
+      this.setState({ printOpen: false });
+    };
+
     var styles = {
       buttonsTopBar: {
         color: "#f2f3f2",
         backgroundColor: "#ff5353",
+        margin: "5px",
+      },
+
+      navButton: {
+        color: "red",
+        backgroundColor: "white",
         margin: "5px",
       },
     };
@@ -27,52 +53,66 @@ class EmailTopBar extends Component {
         <Button
           style={styles.buttonsTopBar}
           variant="contained"
-          startIcon={<DeleteIcon />}
+          startIcon={<LabelIcon />}
         ></Button>
         <Button
           style={styles.buttonsTopBar}
           variant="contained"
-          startIcon={<ErrorIcon />}
+          startIcon={<LabelOffIcon />}
         ></Button>
         <Button
           style={styles.buttonsTopBar}
           variant="contained"
-          startIcon={<CreateIcon />}
+          startIcon={<BookmarkIcon />}
         ></Button>
         <Button
           style={styles.buttonsTopBar}
           variant="contained"
-          startIcon={<DeleteIcon />}
+          startIcon={<PrintIcon />}
+          onClick={handleClick}
+        >
+          <Snackbar
+            anchorOrigin={{
+              vertical: "bottom",
+              horizontal: "left",
+            }}
+            open={this.state.printOpen}
+            autoHideDuration={2000}
+            message="Function is enabled"
+            onClose={handleClose}
+          ></Snackbar>
+        </Button>
+        <Button
+          style={styles.buttonsTopBar}
+          variant="contained"
+          startIcon={<FlagIcon />}
         ></Button>
         <Button
           style={styles.buttonsTopBar}
           variant="contained"
-          startIcon={<ErrorIcon />}
+          startIcon={<InfoIcon />}
         ></Button>
         <Button
           style={styles.buttonsTopBar}
           variant="contained"
-          startIcon={<CreateIcon />}
+          startIcon={<RefreshIcon />}
         ></Button>
         <Button
           style={styles.buttonsTopBar}
           variant="contained"
-          startIcon={<ErrorIcon />}
+          startIcon={<WidgetsIcon />}
         ></Button>
         <Button
-          style={styles.buttonsTopBar}
+          style={styles.navButton}
           variant="contained"
-          startIcon={<CreateIcon />}
+          startIcon={<KeyboardArrowLeftIcon />}
+          onClick={this.props.onMoveEmailBackward}
         ></Button>
         <Button
-          style={styles.buttonsTopBar}
+          style={styles.navButton}
           variant="contained"
-          startIcon={<DeleteIcon />}
-        ></Button>
-        <Button
-          style={styles.buttonsTopBar}
-          variant="contained"
-          startIcon={<ErrorIcon />}
+          startIcon={<KeyboardArrowRightIcon />}
+          onClick={this.props.onMoveEmailForward}
         ></Button>
       </div>
     );

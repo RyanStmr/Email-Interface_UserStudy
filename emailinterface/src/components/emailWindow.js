@@ -34,7 +34,10 @@ class EmailWindow extends Component {
 
     return (
       <div>
-        <EmailTopBar></EmailTopBar>
+        <EmailTopBar
+          onMoveEmailBackward={this.props.onMoveEmailBackward}
+          onMoveEmailForward={this.props.onMoveEmailForward}
+        ></EmailTopBar>
         <HeaderInfoEmail
           Email={email}
           emailAdress={this.props.emailAdress}
