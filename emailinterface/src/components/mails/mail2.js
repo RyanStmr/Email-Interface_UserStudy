@@ -5,34 +5,7 @@ class Mail2 extends Component {
   render() {
     return (
       <React.Fragment>
-        <div>
-          <div>
-            <p></p>
-            <p></p>
-            <p>
-              Gesendet von{" "}
-              <a
-                href={"https://go.microsoft.com/fwlink/?LinkId&#61;550986"}
-                rel={"nofollow"}
-              >
-                Mail{" "}
-              </a>{" "}
-              für Windows 10
-            </p>
-            <p></p>
-          </div>
-
-          <div>
-            <font>
-              <b>Von:</b> Email anonymized Email anonymized />
-              <b>Gesendet:</b> Thursday, June 13, 2019 10:30:54 PM
-              <br />
-              <b>Betreff:</b> GLUCKWUNGLÜCKWUNSCH AN SIE ($4.500.000,00 USD)
-            </font>
-            <div></div>
-          </div>
-          <div></div>
-
+        <div style={{ fontSize: "10px" }}>
           <p>
             Die Vereinigten Staaten Lottery Inc: Wir sind erfreut, offiziell
             mitteilen zu können, dass Ihre E-Mail-Adresse ist die Summe von
@@ -51,13 +24,13 @@ class Mail2 extends Component {
             <br />
             London, United Kingdom.
             <br />
-            E-mail: Email anonymized />
+            E-mail: Email anonymized
             &#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;
             <br />
             Um Ihren Preis wert Summe von $4.500.000,00 USD behaupten, sollten
             Sie in Ihrem genaue Daten zu füllen, wie unten an und übermittelt
             ihn unverzüglich die erforderlichen National Westminster Bank Plc,
-            Bundesrepublik Deutschland Zahlung per e-mail: Email anonymized />
+            Bundesrepublik Deutschland Zahlung per e-mail: Email anonymized
             &#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;
             <br />
             UNITED STATES Lottogewinner ANTRAG AUF ZAHLUNG.

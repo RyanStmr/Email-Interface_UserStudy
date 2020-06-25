@@ -47,7 +47,7 @@ class EmailWindow extends Component {
             marginLeft: "30px",
             marginTop: "5px",
             overflow: "scroll",
-            width: "700px",
+            width: "710px",
             height: "450px",
           }}
         >

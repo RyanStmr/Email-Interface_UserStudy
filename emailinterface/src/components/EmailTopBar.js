@@ -78,7 +78,7 @@ class EmailTopBar extends Component {
             }}
             open={this.state.printOpen}
             autoHideDuration={2000}
-            message="Function is enabled"
+            message="Function is disabled"
             onClose={handleClose}
           ></Snackbar>
         </Button>

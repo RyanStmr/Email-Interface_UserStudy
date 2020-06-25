@@ -20,10 +20,23 @@ class HeaderInfoEmail extends Component {
           </Avatar>
         </div>
         <div>
-          <p className="HeaderText">From: {this.props.Email.sender} </p>
-          <p className="HeaderText"> To: {this.props.emailAdress} </p>
-          <p className="HeaderText">Date: {this.props.Email.date}</p>
-          <p className="HeaderText">Subject: {this.props.Email.subject}</p>
+          <p className="HeaderText">
+            <strong>From: </strong> {this.props.Email.sender}{" "}
+          </p>
+          <p className="HeaderText">
+            {" "}
+            <strong>To: </strong>
+            {this.props.emailAdress}{" "}
+          </p>
+          <p className="HeaderText">
+            {" "}
+            <strong>Date: </strong>
+            {this.props.Email.date}
+          </p>
+          <p className="HeaderText">
+            {" "}
+            <strong>Subject: </strong> {this.props.Email.subject}
+          </p>
         </div>
       </div>
     );

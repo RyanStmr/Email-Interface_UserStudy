@@ -10,25 +10,14 @@ class Mail3 extends Component {
             <title></title>
           </head>
           <body>
-            <div>
-              <font>
-                <b>From:</b> Office365@company.com
-                <br></br>
-                <b>Send:</b> Thursday, June 04, 2020 10:30:54 PM
-                <br />
-                <b>Subject:</b> Microsoft account security alert
-              </font>
-              <div></div>
-            </div>
-            <div></div>
-            <h1>Microsoft Account</h1>
+            <h3>Microsoft Account</h3>
 
             <p>Dear User,</p>
 
             <p>
               Someone in Bogota, Colombia attempted to log into your account
               several times. If you believe this was fraudulent activity please
-              report it&nbsp;<a href="{{.URL}}">here</a>.
+              report it&nbsp;<a href="javascript: void(0)">here</a>.
             </p>
 
             <p>
