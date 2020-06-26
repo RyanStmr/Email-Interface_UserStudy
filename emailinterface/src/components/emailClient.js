@@ -197,10 +197,10 @@ class EmailClient extends Component {
                   </Button>
                 </li>
               </Link>
-              <ProfileBox></ProfileBox>
             </ul>
           </nav>
         </div>
+        <ProfileBox></ProfileBox>
         {inbox}
       </div>
     );

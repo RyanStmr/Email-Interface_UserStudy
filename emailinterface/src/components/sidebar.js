@@ -110,10 +110,17 @@ export default function VerticalTabs(props) {
                 style={{
                   fontSize: "10px",
                   height: "70px",
-                  fontFamily: "arial",
                   width: "180px",
+                  textTransform: "none",
+                  border: "2px solid #e9e9e9",
                 }}
-                label={`${email.sender} ${email.subject} ${email.date}`}
+                label={
+                  <div>
+                    <p style={{ fontWeight: "bolder" }}>{email.sender}</p>
+                    <p>{email.subject}</p>
+                    <p>{email.date}</p>
+                  </div>
+                }
                 {...a11yProps(props.Mails.indexOf(email))}
               />
             );

@@ -36,7 +36,7 @@ class EmailTopBar extends Component {
 
       navButton: {
         color: "red",
-        backgroundColor: "white",
+        backgroundColor: "#f2f3f2",
         margin: "5px",
       },
     };

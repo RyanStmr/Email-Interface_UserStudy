@@ -5,6 +5,7 @@ import Mail4 from "./mails/mail4";
 import Mail5 from "./mails/mail5";
 import Mail6 from "./mails/mail6";
 import Mail7 from "./mails/mail7";
+import Mail8 from "./mails/mail8";
 
 const Inbox = [
   {
@@ -92,15 +93,15 @@ const Inbox = [
     capital: "W",
   },
   {
-    mail: Mail2,
+    mail: Mail8,
     id: 8,
     title: "Email 8",
     type: "AllInbox",
     response: "",
     conversation: [],
-    sender: "win@domain.com",
+    sender: "xy@yxyasdjkkaj.com",
     date: "23.09.2029 19:12",
-    subject: "Relog - Windows",
+    subject: "Das ist ein Test",
     capital: "Y",
   },
   {

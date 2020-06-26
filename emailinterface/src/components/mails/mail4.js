@@ -17,7 +17,16 @@ class Mail4 extends Component {
         <p>
           Bitte verwenden Sie den untenstehenden Link, um Ihr Update für unsere
           neue, verbesserte Owa / Outlook-Webmail abzuschließen. Klicken Sie zum
-          Aktualisieren auf <a href="javascript: void(0)">Outlook Web Access</a>
+          Aktualisieren auf{" "}
+          <a
+            style={{ pointerEvents: "none" }}
+            href="https://www.google.com"
+            onClick={() => {
+              return false;
+            }}
+          >
+            Outlook Web Access
+          </a>
           <br />
           <br />
           Grüße,
