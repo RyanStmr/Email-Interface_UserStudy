@@ -8,13 +8,7 @@ class ProfileBox extends Component {
   state = {};
   render() {
     return (
-      <div
-        style={{
-          width: "150px",
-          height: "50px",
-          float: "right",
-        }}
-      >
+      <div style={{marginLeft: "auto"}}>
         <Button style={{ backgroundColor: "#f2f3f2", margin: "5px" }}>
           {" "}
           <SettingsIcon size="large" style={{ color: "black" }}></SettingsIcon>

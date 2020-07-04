@@ -13,13 +13,14 @@
 .HeaderInfo {
   color: rgb(255, 255, 255);
   padding-left: 50px;
-  display: flex;
-  justify-content: left;
   height: 20px;
+  display: flex;
+  width: 900px;
+  
 }
 
 .entireClient {
-  background-color: #ff5353;
+  background-color: #504b4b;
   width: 1000px;
   height: 850px;
   margin: 0 auto;
@@ -27,4 +28,10 @@
 
 .NavBar {
   height: 70px;
+  position: fixed;
+}
+
+.ProfileBox {
+  width: 150px;
+  height: 50px;
 }

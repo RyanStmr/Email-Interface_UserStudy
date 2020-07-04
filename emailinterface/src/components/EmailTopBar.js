@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-
 import Button from "@material-ui/core/Button";
 import BookmarkIcon from "@material-ui/icons/Bookmark";
 import FlagIcon from "@material-ui/icons/Flag";
@@ -30,13 +29,13 @@ class EmailTopBar extends Component {
     var styles = {
       buttonsTopBar: {
         color: "#f2f3f2",
-        backgroundColor: "#ff5353",
+        backgroundColor: "#A4A4A4",
         margin: "5px",
       },
 
       navButton: {
-        color: "red",
-        backgroundColor: "#f2f3f2",
+        color: "#f2f3f2",
+        backgroundColor: "#A4A4A4",
         margin: "5px",
       },
     };

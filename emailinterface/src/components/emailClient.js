@@ -152,12 +152,13 @@ class EmailClient extends Component {
       );
     } else {
     }
-
+    
     return (
       <div className="entireClient">
         <div className="NavBar">
           <div className="HeaderInfo">
             <p>Welcome to your Inbox, {this.props.UserInfo.userName}</p>
+            <ProfileBox className="ProfileBox"></ProfileBox>
           </div>
           <nav>
             <ul className="nav-links">
@@ -200,7 +201,6 @@ class EmailClient extends Component {
             </ul>
           </nav>
         </div>
-        <ProfileBox></ProfileBox>
         {inbox}
       </div>
     );

@@ -26,8 +26,8 @@ class EmailWindow extends Component {
 
     var styles = {
       buttonsSidebar: {
-        color: "#f2f3f2",
-        backgroundColor: "#ff5353",
+        color: "#2E2E2E",
+        backgroundColor: "#f2f3f2",
         margin: "10px",
       },
     };
@@ -38,6 +38,40 @@ class EmailWindow extends Component {
           onMoveEmailBackward={this.props.onMoveEmailBackward}
           onMoveEmailForward={this.props.onMoveEmailForward}
         ></EmailTopBar>
+            <div>
+              <Button
+                startIcon={<ErrorIcon />}
+                style={styles.buttonsSidebar}
+                variant="contained"
+                onClick={() => {
+                  this.props.onMoveToSpam(email.id);
+                  this.resetSelectedTab();
+                }}
+              >
+                Move to Spam
+              </Button>
+              <Button
+                style={styles.buttonsSidebar}
+                startIcon={<CreateIcon />}
+                variant="contained"
+                onClick={() => {
+                  this.handleResponse(this.state.respond);
+                }}
+              >
+                Respond
+              </Button>
+              <Button
+                style={styles.buttonsSidebar}
+                startIcon={<DeleteIcon />}
+                variant="contained"
+                onClick={() => {
+                  this.props.onMoveToBin(email.id);
+                  this.resetSelectedTab();
+                }}
+              >
+                Delete
+              </Button>
+            </div>
         <HeaderInfoEmail
           Email={email}
           emailAdress={this.props.emailAdress}
@@ -55,40 +89,6 @@ class EmailWindow extends Component {
             userName={this.props.userName}
             emailAdress={this.props.emailAdress}
           ></SpecificEmail>
-        </div>
-        <div>
-          <Button
-            startIcon={<ErrorIcon />}
-            style={styles.buttonsSidebar}
-            variant="contained"
-            onClick={() => {
-              this.props.onMoveToSpam(email.id);
-              this.resetSelectedTab();
-            }}
-          >
-            Move to Spam
-          </Button>
-          <Button
-            style={styles.buttonsSidebar}
-            startIcon={<CreateIcon />}
-            variant="contained"
-            onClick={() => {
-              this.handleResponse(this.state.respond);
-            }}
-          >
-            Respond
-          </Button>
-          <Button
-            style={styles.buttonsSidebar}
-            startIcon={<DeleteIcon />}
-            variant="contained"
-            onClick={() => {
-              this.props.onMoveToBin(email.id);
-              this.resetSelectedTab();
-            }}
-          >
-            Delete
-          </Button>
         </div>
         {this.props.Email.conversation.map((conversationPart) => {
           const ConversationPart = conversationPart;
