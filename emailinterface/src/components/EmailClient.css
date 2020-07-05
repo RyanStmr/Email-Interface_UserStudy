@@ -16,14 +16,14 @@
   height: 20px;
   display: flex;
   width: 900px;
-  
 }
 
 .entireClient {
   background-color: #504b4b;
   width: 1000px;
-  height: 850px;
+  height: 750px;
   margin: 0 auto;
+  font-size: medium;
 }
 
 .NavBar {
@@ -33,5 +33,5 @@
 
 .ProfileBox {
   width: 150px;
-  height: 50px;
+  height: 60px;
 }

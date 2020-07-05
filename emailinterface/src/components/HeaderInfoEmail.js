@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import Avatar from "@material-ui/core/Avatar";
-import { deepOrange } from "@material-ui/core/colors";
 import "./HeaderInfoEmail.css";
 
 class HeaderInfoEmail extends Component {
@@ -11,17 +10,17 @@ class HeaderInfoEmail extends Component {
         <div className="Wrapper">
           <Avatar
             style={{
-              backgroundColor: deepOrange[500],
+              backgroundColor: "black",
               top: "20px",
               marginLeft: "10px",
             }}
           >
-            {this.props.Email.capital}
+            {this.props.Email.mail.defaultProps.capital}
           </Avatar>
         </div>
         <div>
           <p className="HeaderText">
-            <strong>From: </strong> {this.props.Email.sender}{" "}
+            <strong>From: </strong> {this.props.Email.mail.defaultProps.sender}{" "}
           </p>
           <p className="HeaderText">
             {" "}
@@ -31,11 +30,12 @@ class HeaderInfoEmail extends Component {
           <p className="HeaderText">
             {" "}
             <strong>Date: </strong>
-            {this.props.Email.date}
+            {this.props.Email.mail.defaultProps.date}
           </p>
           <p className="HeaderText">
             {" "}
-            <strong>Subject: </strong> {this.props.Email.subject}
+            <strong>Subject: </strong>{" "}
+            {this.props.Email.mail.defaultProps.subject}
           </p>
         </div>
       </div>

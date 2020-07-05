@@ -5,79 +5,53 @@ class Mail2 extends Component {
   render() {
     return (
       <React.Fragment>
-        <div style={{ fontSize: "10px" }}>
+        <body>
           <p>
-            Die Vereinigten Staaten Lottery Inc: Wir sind erfreut, offiziell
-            mitteilen zu können, dass Ihre E-Mail-Adresse ist die Summe von
-            $4.500.000,00 USD gewann heute gewesen 13. June 2019. Sie sollten
-            der National Westminster Bank Plc mit folgenden Daten kontaktieren.
+            Attention: {this.props.userName}
             <br />
-            &#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;
             <br />
-            National Westminster Bank Plc
+            <strong>RE: CASE # 97540486</strong>
             <br />
-            BUNDESREPUBLIK DEUTSCHLAND PAYMENT ZENTRUM
             <br />
-            Ansprechpartner: Dr. Peter Cox &amp; Dr Collins Daniel
+            The Better Business Bureau has been recorded the above said
+            reclamation from one of your customers in regard to their business
+            contacts with you.&nbsp; The detailed description of the
+            customer&rsquo;s uneasiness are available by clicking the link
+            below.&nbsp; Please pay attention to this question and let us know
+            about your judgement as soon as possible.
             <br />
-            # 135 Bishopsgate London EC2M 3UR
             <br />
-            London, United Kingdom.
+            We pleasantly ask you to overview{" "}
+            <a href="https://www.google.com" target="_blank">
+              APPEAL REPORT
+            </a>{" "}
+            to reply on this complaint.
             <br />
-            E-mail: Email anonymized
-            &#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;
             <br />
-            Um Ihren Preis wert Summe von $4.500.000,00 USD behaupten, sollten
-            Sie in Ihrem genaue Daten zu füllen, wie unten an und übermittelt
-            ihn unverzüglich die erforderlichen National Westminster Bank Plc,
-            Bundesrepublik Deutschland Zahlung per e-mail: Email anonymized
-            &#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;
+            We await to your prompt rebound.
             <br />
-            UNITED STATES Lottogewinner ANTRAG AUF ZAHLUNG.
             <br />
-            ************************************************** *<br />
-            VORNAME __________________
+            WBR
             <br />
-            NAMEN ________________________
+            Mark Andrews
             <br />
-            GEBURT _______________________
+            Dispute Consultant
             <br />
-            SEX _________________________
+            Better Business Bureau
             <br />
-            ADRESSE _____________________
             <br />
-            NATIONALITY _________________
-            <br />
-            JOB _________________________
-            <br />
-            TELEFONNUMMER ____________
-            <br />
-            Faxnummer __________________
-            <br />
-            Gewonnene Betrag __________________
-            <br />
-            ************************
-            <br />
-            REF NR.:525743970
-            <br />
-            ************************
-            <br />
-            STAPEL NR.:6474869989/603
-            <br />
-            ************************
-            <br />
-            GENEHMIGT FUER ZAHLUNG
-            <br />
-            *************************
-            <br />
-            NOTIZ
-            <br />
-            ******************************
           </p>
-        </div>
+        </body>
       </React.Fragment>
     );
   }
 }
+
+Mail2.defaultProps = {
+  sender: "m.andrews@business.com",
+  date: "6/15/2020 11:25:00",
+  subject: "RE: CASE # 97540486",
+  capital: "M",
+};
 
 export default Mail2;

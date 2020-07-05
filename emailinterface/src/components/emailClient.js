@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import AllInbox from "./allInbox";
 import SpamInbox from "./spamInbox";
 import BinInbox from "./binInbox";
+import ImportantInbox from "./importantInbox";
+
 import Button from "@material-ui/core/Button";
 import DeleteIcon from "@material-ui/icons/Delete";
 import ErrorIcon from "@material-ui/icons/Error";
@@ -26,50 +28,6 @@ class EmailClient extends Component {
     this.setState(copy);
   };
 
-  hanldeResponse = (emailID, textContent) => {
-    let copy = this.state;
-    copy.inbox.map((email) => {
-      if (email.id === emailID) {
-        email.response = textContent;
-        console.log(textContent);
-
-        //Create Mail Component to put into Conversation
-        let tempDate = new Date();
-        var date =
-          tempDate.getHours() +
-          ":" +
-          tempDate.getMinutes() +
-          " am " +
-          tempDate.getDate() +
-          "." +
-          (tempDate.getMonth() + 1) +
-          "." +
-          tempDate.getFullYear();
-
-        const NewResponse = () => (
-          <div
-            style={{
-              backgroundColor: "#ff5353",
-              opacity: "0.9",
-              width: "500px",
-              wordBreak: "break-word",
-            }}
-          >
-            <p style={{ backgroundColor: "white", padding: "10px" }}>
-              Geantwortet um {date}
-            </p>
-            <p style={{ fontSize: "12px", padding: "10px" }}>{textContent}</p>
-          </div>
-        );
-
-        email.conversation.push(NewResponse);
-      }
-    });
-
-    this.setState(copy);
-    this.forceUpdate();
-  };
-
   onMoveToSpam = (emailID) => {
     let copy = this.state;
     copy.inbox.map((email) => {
@@ -84,7 +42,18 @@ class EmailClient extends Component {
   onMoveToBin = (emailID) => {
     let copy = this.state;
     copy.inbox.map((email) => {
-      if (email.id == emailID) email.type = "BinInbox";
+      if (email.id === emailID) email.type = "BinInbox";
+    });
+
+    this.setState(copy);
+    this.forceUpdate();
+    this.countEmails();
+  };
+
+  onMoveToImportant = (emailID) => {
+    let copy = this.state;
+    copy.inbox.map((email) => {
+      if (email.id === emailID) email.type = "ImportantInbox";
     });
 
     this.setState(copy);
@@ -106,7 +75,6 @@ class EmailClient extends Component {
   };
 
   handleInboxChange = (whichInbox) => {
-    console.log(whichInbox);
     let copy = this.state;
     copy.currentInbox = whichInbox;
     copy.currentEmail = undefined;
@@ -123,9 +91,11 @@ class EmailClient extends Component {
           Mails={this.state.inbox}
           onMoveToSpam={this.onMoveToSpam}
           onMoveToBin={this.onMoveToBin}
+          onMoveToImportant={this.onMoveToImportant}
           Response={this.hanldeResponse}
           onNewEmail={this.handleEmailChange}
           Recipient={this.props.UserInfo.emailAdress}
+          userName={this.props.UserInfo.userName}
         ></BinInbox>
       );
     } else if (currentInbox === "AllInbox") {
@@ -134,9 +104,11 @@ class EmailClient extends Component {
           Mails={this.state.inbox}
           onMoveToSpam={this.onMoveToSpam}
           onMoveToBin={this.onMoveToBin}
+          onMoveToImportant={this.onMoveToImportant}
           Response={this.hanldeResponse}
           onNewEmail={this.handleEmailChange}
           Recipient={this.props.UserInfo.emailAdress}
+          userName={this.props.UserInfo.userName}
         ></AllInbox>
       );
     } else if (currentInbox === "SpamInbox") {
@@ -145,14 +117,28 @@ class EmailClient extends Component {
           Mails={this.state.inbox}
           onMoveToSpam={this.onMoveToSpam}
           onMoveToBin={this.onMoveToBin}
+          onMoveToImportant={this.onMoveToImportant}
           Response={this.hanldeResponse}
           onNewEmail={this.handleEmailChange}
           Recipient={this.props.UserInfo.emailAdress}
+          userName={this.props.UserInfo.userName}
         ></SpamInbox>
       );
-    } else {
+    } else if (currentInbox === "ImportantInbox") {
+      inbox = (
+        <ImportantInbox
+          Mails={this.state.inbox}
+          onMoveToSpam={this.onMoveToSpam}
+          onMoveToBin={this.onMoveToBin}
+          onMoveToImportant={this.onMoveToImportant}
+          Response={this.hanldeResponse}
+          onNewEmail={this.handleEmailChange}
+          Recipient={this.props.UserInfo.emailAdress}
+          userName={this.props.UserInfo.userName}
+        ></ImportantInbox>
+      );
     }
-    
+
     return (
       <div className="entireClient">
         <div className="NavBar">
@@ -169,7 +155,7 @@ class EmailClient extends Component {
                 <li className="button-links">
                   <Badge badgeContent={this.state.mailNrBadge} color="error">
                     <Button variant="contained" startIcon={<InboxIcon />}>
-                      Posteingang
+                      Inbox
                     </Button>
                   </Badge>
                 </li>
@@ -184,7 +170,7 @@ class EmailClient extends Component {
                     color=""
                     startIcon={<DeleteIcon />}
                   >
-                    Papierkorb
+                    Bin
                   </Button>
                 </li>
               </Link>
@@ -195,6 +181,16 @@ class EmailClient extends Component {
                 <li className="button-links">
                   <Button variant="contained" startIcon={<ErrorIcon />}>
                     Spam
+                  </Button>
+                </li>
+              </Link>
+              <Link
+                to="/EmailClient/ImportantInbox"
+                onClick={() => this.handleInboxChange("ImportantInbox")}
+              >
+                <li className="button-links">
+                  <Button variant="contained" startIcon={<ErrorIcon />}>
+                    Important
                   </Button>
                 </li>
               </Link>

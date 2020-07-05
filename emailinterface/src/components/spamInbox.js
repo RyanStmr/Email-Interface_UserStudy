@@ -33,9 +33,11 @@ class SpamInbox extends Component {
           inboxType="SpamInbox"
           onMoveToSpam={this.props.onMoveToSpam}
           onMoveToBin={this.props.onMoveToBin}
+          onMoveToImportant={this.props.onMoveToImportant}
           Response={this.props.Response}
           onNewEmail={this.props.onNewEmail}
           Recipient={this.props.Recipient}
+          userName={this.props.userName}
         />
       </div>
     );

@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Respondfield from "./respondfield";
 import Button from "@material-ui/core/Button";
 import DeleteIcon from "@material-ui/icons/Delete";
 import CreateIcon from "@material-ui/icons/Create";
@@ -7,17 +6,11 @@ import ErrorIcon from "@material-ui/icons/Error";
 import EmailTopBar from "./EmailTopBar";
 import HeaderInfoEmail from "./HeaderInfoEmail";
 class EmailWindow extends Component {
-  state = {
-    respond: false,
-  };
+  state = {};
 
   resetSelectedTab = () => {
     this.props.resetSelectedTab();
     this.props.onNewEmail(undefined);
-  };
-
-  handleResponse = () => {
-    this.setState({ respond: !this.state.respond });
   };
 
   render() {
@@ -34,44 +27,45 @@ class EmailWindow extends Component {
 
     return (
       <div>
+        <div>
+          <Button
+            startIcon={<ErrorIcon />}
+            style={styles.buttonsSidebar}
+            variant="contained"
+            onClick={() => {
+              this.props.onMoveToSpam(email.id);
+              this.resetSelectedTab();
+            }}
+          >
+            Move to Spam
+          </Button>
+          <Button
+            style={styles.buttonsSidebar}
+            startIcon={<CreateIcon />}
+            variant="contained"
+            onClick={() => {
+              this.props.onMoveToImportant(email.id);
+              this.resetSelectedTab();
+            }}
+          >
+            Move to Important
+          </Button>
+          <Button
+            style={styles.buttonsSidebar}
+            startIcon={<DeleteIcon />}
+            variant="contained"
+            onClick={() => {
+              this.props.onMoveToBin(email.id);
+              this.resetSelectedTab();
+            }}
+          >
+            Delete
+          </Button>
+        </div>
         <EmailTopBar
           onMoveEmailBackward={this.props.onMoveEmailBackward}
           onMoveEmailForward={this.props.onMoveEmailForward}
         ></EmailTopBar>
-            <div>
-              <Button
-                startIcon={<ErrorIcon />}
-                style={styles.buttonsSidebar}
-                variant="contained"
-                onClick={() => {
-                  this.props.onMoveToSpam(email.id);
-                  this.resetSelectedTab();
-                }}
-              >
-                Move to Spam
-              </Button>
-              <Button
-                style={styles.buttonsSidebar}
-                startIcon={<CreateIcon />}
-                variant="contained"
-                onClick={() => {
-                  this.handleResponse(this.state.respond);
-                }}
-              >
-                Respond
-              </Button>
-              <Button
-                style={styles.buttonsSidebar}
-                startIcon={<DeleteIcon />}
-                variant="contained"
-                onClick={() => {
-                  this.props.onMoveToBin(email.id);
-                  this.resetSelectedTab();
-                }}
-              >
-                Delete
-              </Button>
-            </div>
         <HeaderInfoEmail
           Email={email}
           emailAdress={this.props.emailAdress}
@@ -80,7 +74,7 @@ class EmailWindow extends Component {
           style={{
             marginLeft: "30px",
             marginTop: "5px",
-            overflow: "scroll",
+            //overflow: "scroll",
             width: "710px",
             height: "450px",
           }}
@@ -90,13 +84,6 @@ class EmailWindow extends Component {
             emailAdress={this.props.emailAdress}
           ></SpecificEmail>
         </div>
-        {this.props.Email.conversation.map((conversationPart) => {
-          const ConversationPart = conversationPart;
-          return <ConversationPart></ConversationPart>;
-        })}
-        {this.state.respond && (
-          <Respondfield Response={this.props.Response}></Respondfield>
-        )}
       </div>
     );
   }

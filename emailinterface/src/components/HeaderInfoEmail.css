@@ -1,5 +1,5 @@
 .HeaderText {
-  color: rgb(0, 0, 0);
+  color: rgb(32, 30, 30);
   font-size: 15px;
   margin: 0;
   padding-left: 20px;
@@ -9,7 +9,7 @@
   display: flex;
   margin-left: 20px;
   margin-right: 20px;
-  background-color: rgb(241, 240, 241);
+  background-color: rgb(238, 235, 238);
 }
 
 .Wrapper {

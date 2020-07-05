@@ -2,40 +2,43 @@ import React, { Component } from "react";
 
 class Mail4 extends Component {
   state = {};
+
   render() {
     return (
       <React.Fragment>
-        <p>An alle Mitarbeiter \ Mitarbeiter</p>
-
-        <p>
-          Beachten Sie dieses wichtige Update, dass unsere neue Webmail mit
-          einem neuen Messagingsystem von Owa / outlook verbessert wurde, das
-          auch eine schnellere Verwendung für E-Mail, einen gemeinsamen
-          Kalender, Webdokumente und die neue Anti-Spam-Version 2018 umfasst.
-        </p>
-
-        <p>
-          Bitte verwenden Sie den untenstehenden Link, um Ihr Update für unsere
-          neue, verbesserte Owa / Outlook-Webmail abzuschließen. Klicken Sie zum
-          Aktualisieren auf{" "}
-          <a
-            style={{ pointerEvents: "none" }}
-            href="https://www.google.com"
-            onClick={() => {
-              return false;
-            }}
-          >
-            Outlook Web Access
-          </a>
-          <br />
-          <br />
-          Grüße,
-          <br />
-          IT Service Desk-Support.
-        </p>
+        <body>
+          <div>
+            <h3>Bulletin Alert!!</h3>
+            <h3>Attention {this.props.userName}:</h3>
+            <p>Bulletin Headline: Crime Suspect</p>
+            <p>Sending Agency: Police</p>
+            <p>Bulletin Time: 18:47</p>
+            <p>Bulletin Case#: 11-04626</p>
+            <p>Bulletin Author: Leroy Jethro #8847</p>
+            <p>Sending User #: 2892</p>
+            <p>
+              <a href="https://www.google.com" target="_blank">
+                To view the full bulletin alert click here
+              </a>
+            </p>
+            <p>
+              To unsubscribe from these emails click{" "}
+              <a href="https://www.google.com" target="_blank">
+                here
+              </a>
+            </p>
+          </div>
+        </body>
       </React.Fragment>
     );
   }
 }
+
+Mail4.defaultProps = {
+  sender: "PoliceOfGermany@police.com",
+  date: "June 16, 2020, 08:13",
+  subject: "Crime Report",
+  capital: "P",
+};
 
 export default Mail4;

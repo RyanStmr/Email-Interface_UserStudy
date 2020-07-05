@@ -14,16 +14,16 @@ import { Snackbar } from "@material-ui/core";
 
 class EmailTopBar extends Component {
   state = {
-    printOpen: false,
+    printMessage: false,
   };
 
   render() {
     const handleClick = () => {
-      this.setState({ printOpen: true });
+      this.setState({ printMessage: true });
     };
 
     const handleClose = () => {
-      this.setState({ printOpen: false });
+      this.setState({ printMessage: false });
     };
 
     var styles = {
@@ -53,17 +53,19 @@ class EmailTopBar extends Component {
           style={styles.buttonsTopBar}
           variant="contained"
           startIcon={<LabelIcon />}
-        ></Button>
-        <Button
-          style={styles.buttonsTopBar}
-          variant="contained"
-          startIcon={<LabelOffIcon />}
-        ></Button>
-        <Button
-          style={styles.buttonsTopBar}
-          variant="contained"
-          startIcon={<BookmarkIcon />}
-        ></Button>
+          onClick={handleClick}
+        >
+          <Snackbar
+            anchorOrigin={{
+              vertical: "bottom",
+              horizontal: "left",
+            }}
+            open={this.state.printMessage}
+            autoHideDuration={1000}
+            message="Function is disabled"
+            onClose={handleClose}
+          ></Snackbar>
+        </Button>
         <Button
           style={styles.buttonsTopBar}
           variant="contained"
@@ -75,32 +77,32 @@ class EmailTopBar extends Component {
               vertical: "bottom",
               horizontal: "left",
             }}
-            open={this.state.printOpen}
-            autoHideDuration={2000}
+            open={this.state.printMessage}
+            autoHideDuration={1000}
             message="Function is disabled"
             onClose={handleClose}
           ></Snackbar>
         </Button>
-        <Button
-          style={styles.buttonsTopBar}
-          variant="contained"
-          startIcon={<FlagIcon />}
-        ></Button>
+
         <Button
           style={styles.buttonsTopBar}
           variant="contained"
           startIcon={<InfoIcon />}
-        ></Button>
-        <Button
-          style={styles.buttonsTopBar}
-          variant="contained"
-          startIcon={<RefreshIcon />}
-        ></Button>
-        <Button
-          style={styles.buttonsTopBar}
-          variant="contained"
-          startIcon={<WidgetsIcon />}
-        ></Button>
+          onClick={handleClick}
+        >
+          {" "}
+          <Snackbar
+            anchorOrigin={{
+              vertical: "bottom",
+              horizontal: "left",
+            }}
+            open={this.state.printMessage}
+            autoHideDuration={1000}
+            message="Function is disabled"
+            onClose={handleClose}
+          ></Snackbar>
+        </Button>
+
         <Button
           style={styles.navButton}
           variant="contained"

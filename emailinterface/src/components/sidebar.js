@@ -114,10 +114,22 @@ export default function VerticalTabs(props) {
                   margin: "0",
                 }}
                 label={
-                  <div >
-                    <p style={{ fontWeight: "bolder", textAlign: "center", margin: "0" }}>{email.sender}</p>
-                    <p style={{textAlign: "center", margin: "0",}}>{email.subject}</p>
-                    <p style={{ textAlign: "center" , margin: "0"}}>{email.date}</p>
+                  <div>
+                    <p
+                      style={{
+                        fontWeight: "bolder",
+                        textAlign: "center",
+                        margin: "0",
+                      }}
+                    >
+                      {email.mail.defaultProps.sender}
+                    </p>
+                    <p style={{ textAlign: "center", margin: "0" }}>
+                      {email.mail.defaultProps.subject}
+                    </p>
+                    <p style={{ textAlign: "center", margin: "0" }}>
+                      {email.mail.defaultProps.date}
+                    </p>
                   </div>
                 }
                 {...a11yProps(props.Mails.indexOf(email))}
@@ -137,14 +149,13 @@ export default function VerticalTabs(props) {
               >
                 <EmailWindow
                   emailAdress={props.Recipient}
+                  userName={props.userName}
                   resetSelectedTab={resetSelectedTab}
                   onNewEmail={props.onNewEmail}
-                  Response={(textContent) => {
-                    props.Response(email.id, textContent);
-                  }}
                   Email={email}
                   onMoveToSpam={props.onMoveToSpam}
                   onMoveToBin={props.onMoveToBin}
+                  onMoveToImportant={props.onMoveToImportant}
                   onMoveEmailForward={forwardSelectedTab}
                   onMoveEmailBackward={backSelectedTab}
                 ></EmailWindow>
