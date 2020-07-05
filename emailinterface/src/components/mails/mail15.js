@@ -21,7 +21,7 @@ class Mail15 extends Component {
         </p>
         <p>
           Your account will remain active after you have successfully upgraded
-          to the new 500MB
+          to the new 500MBs
         </p>
         <p>Thanks for bearing with us,</p>
         <p>IT @ COMPANY.co</p>
