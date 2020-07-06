@@ -43,15 +43,16 @@ function a11yProps(index) {
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 0,
-    backgroundColor: "#f2f3f2",
+    backgroundColor: "white",
+    borderTop: "1px solid grey",
+    borderBottom: "1px solid grey",
     display: "inline-flex",
+    width: 980,
     height: 700,
     position: "fixed",
     top: "120px",
   },
-  tabs: {
-    borderRight: `2px solid ${theme.palette.divider}`,
-  },
+  tabs: {},
 }));
 
 export default function VerticalTabs(props) {
@@ -70,8 +71,8 @@ export default function VerticalTabs(props) {
     if (newValue > props.Mails.length - 1 || newValue < 0) {
       props.onNewEmail(undefined);
     } else {
-      let selectedEmailID = props.Mails[newValue].id;
-      props.onNewEmail(selectedEmailID);
+      let selectedEmailName = props.Mails[newValue].mail.defaultProps.subject;
+      props.onNewEmail(selectedEmailName);
     }
   };
 
@@ -94,7 +95,7 @@ export default function VerticalTabs(props) {
 
   return (
     <div>
-      <div className={classes.root} style={{ width: "1000px" }}>
+      <div className={classes.root}>
         <Tabs
           orientation="vertical"
           variant="scrollable"
@@ -102,7 +103,10 @@ export default function VerticalTabs(props) {
           onChange={handleChange}
           aria-label="Vertical tabs example"
           className={classes.tabs}
-          style={{ width: "180px" }}
+          style={{
+            width: "180px",
+            borderRight: "1px solid grey",
+          }}
         >
           {props.Mails.map((email) => {
             return (
@@ -110,24 +114,32 @@ export default function VerticalTabs(props) {
                 style={{
                   fontSize: "10px",
                   textTransform: "none",
-                  borderBottom: "2px solid black",
+                  borderBottom: "1px solid grey",
                   margin: "0",
+                  backgroundColor: "white",
                 }}
                 label={
-                  <div>
+                  <div style={{ width: "170px" }}>
                     <p
                       style={{
                         fontWeight: "bolder",
-                        textAlign: "center",
+                        textAlign: "left",
+                        fontSize: "12px",
                         margin: "0",
                       }}
                     >
                       {email.mail.defaultProps.sender}
                     </p>
-                    <p style={{ textAlign: "center", margin: "0" }}>
+                    <p style={{ textAlign: "left", margin: "0" }}>
                       {email.mail.defaultProps.subject}
                     </p>
-                    <p style={{ textAlign: "center", margin: "0" }}>
+                    <p
+                      style={{
+                        textAlign: "left",
+                        margin: "0",
+                        fontSize: "8px",
+                      }}
+                    >
                       {email.mail.defaultProps.date}
                     </p>
                   </div>
@@ -137,7 +149,6 @@ export default function VerticalTabs(props) {
             );
           })}
         </Tabs>
-
         {props.Mails.map((email) => {
           return (
             <TabPanel value={value} index={props.Mails.indexOf(email)}>

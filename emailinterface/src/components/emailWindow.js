@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import Button from "@material-ui/core/Button";
 import DeleteIcon from "@material-ui/icons/Delete";
-import CreateIcon from "@material-ui/icons/Create";
+import EmailIcon from "@material-ui/icons/Email";
+
 import ErrorIcon from "@material-ui/icons/Error";
 import EmailTopBar from "./EmailTopBar";
 import HeaderInfoEmail from "./HeaderInfoEmail";
@@ -27,49 +28,56 @@ class EmailWindow extends Component {
 
     return (
       <div>
-        <div>
-          <Button
-            startIcon={<ErrorIcon />}
-            style={styles.buttonsSidebar}
-            variant="contained"
-            onClick={() => {
-              this.props.onMoveToSpam(email.id);
-              this.resetSelectedTab();
-            }}
-          >
-            Move to Spam
-          </Button>
-          <Button
-            style={styles.buttonsSidebar}
-            startIcon={<CreateIcon />}
-            variant="contained"
-            onClick={() => {
-              this.props.onMoveToImportant(email.id);
-              this.resetSelectedTab();
-            }}
-          >
-            Move to Important
-          </Button>
-          <Button
-            style={styles.buttonsSidebar}
-            startIcon={<DeleteIcon />}
-            variant="contained"
-            onClick={() => {
-              this.props.onMoveToBin(email.id);
-              this.resetSelectedTab();
-            }}
-          >
-            Delete
-          </Button>
+        <div
+          style={{
+            backgroundColor: "rgb(238, 235, 238)",
+          }}
+        >
+          <div>
+            <Button
+              style={styles.buttonsSidebar}
+              startIcon={<EmailIcon />}
+              variant="contained"
+              onClick={() => {
+                this.props.onMoveToImportant(email.id);
+                this.resetSelectedTab();
+              }}
+            >
+              Move to Important
+            </Button>
+            <Button
+              startIcon={<ErrorIcon />}
+              style={styles.buttonsSidebar}
+              variant="contained"
+              onClick={() => {
+                this.props.onMoveToSpam(email.id);
+                this.resetSelectedTab();
+              }}
+            >
+              Move to Spam
+            </Button>
+            <Button
+              style={styles.buttonsSidebar}
+              startIcon={<DeleteIcon />}
+              variant="contained"
+              onClick={() => {
+                this.props.onMoveToBin(email.id);
+                this.resetSelectedTab();
+              }}
+            >
+              Move to Bin
+            </Button>
+          </div>
+
+          <EmailTopBar
+            onMoveEmailBackward={this.props.onMoveEmailBackward}
+            onMoveEmailForward={this.props.onMoveEmailForward}
+          ></EmailTopBar>
+          <HeaderInfoEmail
+            Email={email}
+            emailAdress={this.props.emailAdress}
+          ></HeaderInfoEmail>
         </div>
-        <EmailTopBar
-          onMoveEmailBackward={this.props.onMoveEmailBackward}
-          onMoveEmailForward={this.props.onMoveEmailForward}
-        ></EmailTopBar>
-        <HeaderInfoEmail
-          Email={email}
-          emailAdress={this.props.emailAdress}
-        ></HeaderInfoEmail>
         <div
           style={{
             marginLeft: "30px",

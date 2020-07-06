@@ -10,8 +10,8 @@ class HeaderInfoEmail extends Component {
         <div className="Wrapper">
           <Avatar
             style={{
-              backgroundColor: "black",
-              top: "20px",
+              backgroundColor: "grey",
+              top: "10px",
               marginLeft: "10px",
             }}
           >

@@ -7,9 +7,9 @@
 
 .AllHeaders {
   display: flex;
-  margin-left: 20px;
-  margin-right: 20px;
-  background-color: rgb(238, 235, 238);
+  margin-left: 10px;
+  margin-right: 10px;
+  background-color: rgb(255, 255, 255);
 }
 
 .Wrapper {

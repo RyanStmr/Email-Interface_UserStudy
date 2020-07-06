@@ -2,7 +2,7 @@ import React from "react";
 import "./App.css";
 import EmailClient from "./components/emailClient.js";
 import StartPage from "./components/startPage.js";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 function App() {
   let userInfo = {

@@ -20,11 +20,18 @@ class EmailClient extends Component {
     currentEmail: 0,
     inbox: Inbox,
     mailNrBadge: Inbox.length,
+    events: [],
   };
 
   handleEmailChange = (emailNr) => {
     let copy = this.state;
     copy.currentEmail = emailNr;
+    this.setState(copy);
+  };
+
+  handleIncomingEvent = (event) => {
+    let copy = this.state;
+    copy.events.push(event);
     this.setState(copy);
   };
 
@@ -63,8 +70,6 @@ class EmailClient extends Component {
 
   countEmails = () => {
     let counter = 0;
-    console.log("called");
-
     this.state.inbox.forEach((element) => {
       counter = element.type === "AllInbox" ? counter + 1 : counter;
     });
@@ -143,7 +148,7 @@ class EmailClient extends Component {
       <div className="entireClient">
         <div className="NavBar">
           <div className="HeaderInfo">
-            <p>Welcome to your Inbox, {this.props.UserInfo.userName}</p>
+            <p>Welcome to your Email Client, {this.props.UserInfo.userName}</p>
             <ProfileBox className="ProfileBox"></ProfileBox>
           </div>
           <nav>
@@ -154,10 +159,42 @@ class EmailClient extends Component {
               >
                 <li className="button-links">
                   <Badge badgeContent={this.state.mailNrBadge} color="error">
-                    <Button variant="contained" startIcon={<InboxIcon />}>
+                    <Button
+                      variant="contained"
+                      color={currentInbox === "AllInbox" ? "secondary" : ""}
+                      startIcon={<InboxIcon />}
+                    >
                       Inbox
                     </Button>
                   </Badge>
+                </li>
+              </Link>
+              <Link
+                to="/EmailClient/ImportantInbox"
+                onClick={() => this.handleInboxChange("ImportantInbox")}
+              >
+                <li className="button-links">
+                  <Button
+                    variant="contained"
+                    color={currentInbox === "ImportantInbox" ? "secondary" : ""}
+                    startIcon={<EmailIcon />}
+                  >
+                    Important
+                  </Button>
+                </li>
+              </Link>
+              <Link
+                to="/EmailClient/Spam"
+                onClick={() => this.handleInboxChange("SpamInbox")}
+              >
+                <li className="button-links">
+                  <Button
+                    variant="contained"
+                    color={currentInbox === "SpamInbox" ? "secondary" : ""}
+                    startIcon={<ErrorIcon />}
+                  >
+                    Spam
+                  </Button>
                 </li>
               </Link>
               <Link
@@ -167,30 +204,10 @@ class EmailClient extends Component {
                 <li className="button-links">
                   <Button
                     variant="contained"
-                    color=""
+                    color={currentInbox === "BinInbox" ? "secondary" : ""}
                     startIcon={<DeleteIcon />}
                   >
                     Bin
-                  </Button>
-                </li>
-              </Link>
-              <Link
-                to="/EmailClient/Spam"
-                onClick={() => this.handleInboxChange("SpamInbox")}
-              >
-                <li className="button-links">
-                  <Button variant="contained" startIcon={<ErrorIcon />}>
-                    Spam
-                  </Button>
-                </li>
-              </Link>
-              <Link
-                to="/EmailClient/ImportantInbox"
-                onClick={() => this.handleInboxChange("ImportantInbox")}
-              >
-                <li className="button-links">
-                  <Button variant="contained" startIcon={<ErrorIcon />}>
-                    Important
                   </Button>
                 </li>
               </Link>

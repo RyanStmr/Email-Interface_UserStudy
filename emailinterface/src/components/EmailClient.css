@@ -1,5 +1,4 @@
 .nav-links {
-  display: center;
   list-style-type: none;
 }
 
@@ -11,7 +10,7 @@
 }
 
 .HeaderInfo {
-  color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
   padding-left: 50px;
   height: 20px;
   display: flex;
@@ -19,11 +18,12 @@
 }
 
 .entireClient {
-  background-color: #504b4b;
-  width: 1000px;
-  height: 750px;
+  background-color: #f1f1f1;
+  width: 980px;
+  height: 850px;
   margin: 0 auto;
   font-size: medium;
+  border: 1px solid black;
 }
 
 .NavBar {
