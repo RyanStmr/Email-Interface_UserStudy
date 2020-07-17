@@ -23,14 +23,14 @@ class EmailTopBar extends Component {
 
     var styles = {
       buttonsTopBar: {
-        color: "#f2f3f2",
-        backgroundColor: "#A4A4A4",
         marginLeft: "10px",
       },
 
       navButton: {
-        color: "#f2f3f2",
-        backgroundColor: "#A4A4A4",
+        marginLeft: "10px",
+      },
+
+      buttonIcons: {
         marginLeft: "10px",
       },
     };
@@ -40,13 +40,12 @@ class EmailTopBar extends Component {
         style={{
           width: "750px",
           marginBottom: "10px",
-          justifyContent: "center",
         }}
       >
         <Button
           style={styles.buttonsTopBar}
-          variant="contained"
-          startIcon={<LabelIcon />}
+          variant="outlined"
+          startIcon={<LabelIcon style={styles.buttonIcons} />}
           onClick={handleClick}
         >
           <Snackbar
@@ -62,8 +61,8 @@ class EmailTopBar extends Component {
         </Button>
         <Button
           style={styles.buttonsTopBar}
-          variant="contained"
-          startIcon={<PrintIcon />}
+          variant="outlined"
+          startIcon={<PrintIcon style={styles.buttonIcons} />}
           onClick={handleClick}
         >
           <Snackbar
@@ -80,8 +79,8 @@ class EmailTopBar extends Component {
 
         <Button
           style={styles.buttonsTopBar}
-          variant="contained"
-          startIcon={<InfoIcon />}
+          variant="outlined"
+          startIcon={<InfoIcon style={styles.buttonIcons} />}
           onClick={handleClick}
         >
           {" "}
@@ -99,14 +98,14 @@ class EmailTopBar extends Component {
 
         <Button
           style={styles.navButton}
-          variant="contained"
-          startIcon={<KeyboardArrowLeftIcon />}
+          variant="outlined"
+          startIcon={<KeyboardArrowLeftIcon style={styles.buttonIcons} />}
           onClick={this.props.onMoveEmailBackward}
         ></Button>
         <Button
           style={styles.navButton}
-          variant="contained"
-          startIcon={<KeyboardArrowRightIcon />}
+          variant="outlined"
+          startIcon={<KeyboardArrowRightIcon style={styles.buttonIcons} />}
           onClick={this.props.onMoveEmailForward}
         ></Button>
       </div>

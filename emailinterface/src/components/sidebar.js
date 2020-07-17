@@ -48,9 +48,8 @@ const useStyles = makeStyles((theme) => ({
     borderBottom: "1px solid grey",
     display: "inline-flex",
     width: 980,
-    height: 700,
-    position: "fixed",
-    top: "120px",
+    height: 900,
+    marginTop: "20px",
   },
   tabs: {},
 }));
@@ -68,27 +67,30 @@ export default function VerticalTabs(props) {
 
   //hand over current Email into sidebar props for Ryan x)
   const passNewValue = (newValue) => {
-    if (newValue > props.Mails.length - 1 || newValue < 0) {
-      props.onNewEmail(undefined);
-    } else {
-      let selectedEmailName = props.Mails[newValue].mail.defaultProps.subject;
-      props.onNewEmail(selectedEmailName);
-    }
+    let selectedEmailName = props.Mails[newValue].mail.defaultProps.keyID;
+    props.onNewEmail(selectedEmailName);
   };
 
   const resetSelectedTab = () => {
-    setValue(undefined);
-    props.onNewEmail(undefined);
+    setValue(0);
+    passNewValue(0);
   };
 
   const forwardSelectedTab = () => {
     let newTab = value + 1;
+    if (newTab > props.Mails.length - 1) {
+      newTab = 0;
+    }
     setValue(newTab);
     passNewValue(newTab);
   };
 
   const backSelectedTab = () => {
     let newTab = value - 1;
+
+    if (newTab < 0) {
+      newTab = props.Mails.length - 1;
+    }
     setValue(newTab);
     passNewValue(newTab);
   };
@@ -104,7 +106,6 @@ export default function VerticalTabs(props) {
           aria-label="Vertical tabs example"
           className={classes.tabs}
           style={{
-            width: "180px",
             borderRight: "1px solid grey",
           }}
         >
@@ -117,19 +118,33 @@ export default function VerticalTabs(props) {
                   borderBottom: "1px solid grey",
                   margin: "0",
                   backgroundColor: "white",
+                  width: "180px",
                 }}
                 label={
                   <div style={{ width: "170px" }}>
-                    <p
-                      style={{
-                        fontWeight: "bolder",
-                        textAlign: "left",
-                        fontSize: "12px",
-                        margin: "0",
-                      }}
-                    >
-                      {email.mail.defaultProps.sender}
-                    </p>
+                    {email.mail.defaultProps.senderName ? (
+                      <p
+                        style={{
+                          fontWeight: "bolder",
+                          textAlign: "left",
+                          fontSize: "12px",
+                          margin: "0",
+                        }}
+                      >
+                        {email.mail.defaultProps.senderName}
+                      </p>
+                    ) : (
+                      <p
+                        style={{
+                          fontWeight: "bolder",
+                          textAlign: "left",
+                          fontSize: "12px",
+                          margin: "0",
+                        }}
+                      >
+                        {email.mail.defaultProps.sender}
+                      </p>
+                    )}
                     <p style={{ textAlign: "left", margin: "0" }}>
                       {email.mail.defaultProps.subject}
                     </p>
@@ -149,12 +164,18 @@ export default function VerticalTabs(props) {
             );
           })}
         </Tabs>
+
+        {props.Mails.length === 0 && (
+          <h1 style={{ margin: "0 auto", marginTop: "100px" }}>
+            This inbox is empty
+          </h1>
+        )}
+
         {props.Mails.map((email) => {
           return (
             <TabPanel value={value} index={props.Mails.indexOf(email)}>
               <div
                 style={{
-                  backgroundColor: "white",
                   overflowWrap: "break-word",
                 }}
               >
@@ -169,6 +190,8 @@ export default function VerticalTabs(props) {
                   onMoveToImportant={props.onMoveToImportant}
                   onMoveEmailForward={forwardSelectedTab}
                   onMoveEmailBackward={backSelectedTab}
+                  HeaderInfo={props.HeaderInfo}
+                  inEmailText={props.inEmailText}
                 ></EmailWindow>
               </div>
             </TabPanel>

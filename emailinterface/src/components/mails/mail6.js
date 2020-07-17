@@ -43,6 +43,7 @@ Mail6.defaultProps = {
   date: "Mai 12, 2020, 12:43",
   subject: "Droppbox Notification",
   capital: "D",
+  keyID: 6,
 };
 
 export default Mail6;

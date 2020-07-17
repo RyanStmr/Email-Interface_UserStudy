@@ -32,6 +32,7 @@ Mail11.defaultProps = {
   date: "Mai 3, 2020, 6:25",
   subject: "Microsoft Account Issues",
   capital: "O",
+  keyID: 2,
 };
 
 export default Mail11;

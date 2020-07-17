@@ -58,6 +58,7 @@ Mail5.defaultProps = {
   date: "May 18, 2020, 5:45",
   subject: "Delivery Confirmation",
   capital: "DHL",
+  keyID: 5,
 };
 
 export default Mail5;

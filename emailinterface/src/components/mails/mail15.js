@@ -35,6 +35,7 @@ Mail15.defaultProps = {
   date: "February 11, 2020, 6:13",
   subject: "Upgrade WebMail",
   capital: "IT",
+  keyID: 2,
 };
 
 export default Mail15;

@@ -3,6 +3,7 @@ import "./App.css";
 import EmailClient from "./components/emailClient.js";
 import StartPage from "./components/startPage.js";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Tracker from "./components/Tracker";
 
 function App() {
   let userInfo = {
@@ -26,7 +27,8 @@ function App() {
         <Route
           path="/EmailClient"
           render={() => (
-            <EmailClient UserInfo={userInfo}></EmailClient> //emailAdress={emailAdress} userName={username} />
+            <Tracker userInfo={userInfo}></Tracker>
+            //<EmailClient UserInfo={userInfo}></EmailClient>
           )}
         />
       </Switch>

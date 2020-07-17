@@ -163,6 +163,7 @@ Mail16.defaultProps = {
   date: "January 1, 2019, 7:31",
   subject: "Your sensative data",
   capital: "A",
+  keyID: 16,
 };
 
 export default Mail16;

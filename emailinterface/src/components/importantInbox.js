@@ -28,7 +28,7 @@ class importantInbox extends Component {
 
   render() {
     return (
-      <div style={{ position: "fixed", height: "762px" }}>
+      <div style={{}}>
         <Sidebar
           Mails={this.state.importantInbox}
           InboxType="ImportantInbox"
@@ -39,6 +39,8 @@ class importantInbox extends Component {
           onNewEmail={this.props.onNewEmail}
           Recipient={this.props.Recipient}
           userName={this.props.userName}
+          HeaderInfo={this.props.HeaderInfo}
+          inEmailText={this.props.inEmailText}
         />
       </div>
     );

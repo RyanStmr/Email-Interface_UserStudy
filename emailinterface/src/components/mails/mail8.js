@@ -35,6 +35,7 @@ Mail8.defaultProps = {
   date: "March 13, 2020,09:10",
   subject: "Issues with your Email Account",
   capital: "IT",
+  keyID: 2,
 };
 
 export default Mail8;

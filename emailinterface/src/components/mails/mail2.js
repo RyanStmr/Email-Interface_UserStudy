@@ -52,6 +52,7 @@ Mail2.defaultProps = {
   date: "6/15/2020 11:25:00",
   subject: "RE: CASE # 97540486",
   capital: "M",
+  keyID: 2,
 };
 
 export default Mail2;

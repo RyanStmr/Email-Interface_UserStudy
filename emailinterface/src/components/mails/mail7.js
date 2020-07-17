@@ -56,6 +56,7 @@ Mail7.defaultProps = {
   date: "June 17, 2020, 05:18",
   subject: "Shared document",
   capital: "G",
+  keyID: 2,
 };
 
 export default Mail7;

@@ -28,7 +28,7 @@ class AllInbox extends Component {
 
   render() {
     return (
-      <div style={{ position: "fixed", height: "762px" }}>
+      <div>
         <Sidebar
           Mails={this.state.allInbox}
           InboxType="AllInbox"
@@ -39,6 +39,8 @@ class AllInbox extends Component {
           onNewEmail={this.props.onNewEmail}
           Recipient={this.props.Recipient}
           userName={this.props.userName}
+          HeaderInfo={this.props.HeaderInfo}
+          inEmailText={this.props.inEmailText}
         />
       </div>
     );

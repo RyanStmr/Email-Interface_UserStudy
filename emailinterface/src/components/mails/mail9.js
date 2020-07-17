@@ -5,15 +5,11 @@ class Mail9 extends Component {
   render() {
     return (
       <React.Fragment>
-        <p>&nbsp;</p>
-
         <h1 style={{ color: "rgb(68, 114, 196)" }}>
           <b>LinkedIn</b>
         </h1>
 
         <h2 style={{ color: "rgb(68, 114, 196)" }}>REMINDER</h2>
-
-        <p>&nbsp;</p>
 
         <h3>
           <b>
@@ -38,11 +34,6 @@ class Mail9 extends Component {
             .
           </b>
         </h3>
-
-        <p>
-          <b>&nbsp;</b>
-        </p>
-
         <p>
           <b>
             Don&rsquo;t want to receive email notifications? Login to your
@@ -70,6 +61,7 @@ Mail9.defaultProps = {
   date: "June 1, 2020, 08:03",
   subject: "Invitation Reminder",
   capital: "L",
+  keyID: 2,
 };
 
 export default Mail9;

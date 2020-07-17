@@ -39,6 +39,7 @@ Mail4.defaultProps = {
   date: "June 16, 2020, 08:13",
   subject: "Crime Report",
   capital: "P",
+  keyID: 4,
 };
 
 export default Mail4;

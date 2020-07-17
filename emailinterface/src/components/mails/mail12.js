@@ -25,6 +25,7 @@ Mail12.defaultProps = {
   date: "March 12, 2020, 7:38",
   subject: "Your Email Account Size",
   capital: "O",
+  keyID: 2,
 };
 
 export default Mail12;

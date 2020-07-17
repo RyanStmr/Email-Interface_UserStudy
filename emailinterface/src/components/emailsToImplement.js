@@ -18,83 +18,67 @@ import Mail16 from "./mails/mail16";
 const Inbox = [
   {
     mail: Mail1,
-    id: 1,
-    type: "AllInbox",
+    visible: true,
   },
   {
     mail: Mail2,
-    id: 2,
-    type: "AllInbox",
+    visible: false,
   },
   {
     mail: Mail3,
-    id: 3,
-    type: "AllInbox",
+    visible: true,
   },
   {
     mail: Mail4,
-    id: 4,
-    type: "AllInbox",
+    visible: true,
   },
   {
     mail: Mail5,
-    id: 5,
-    type: "AllInbox",
+    visible: false,
   },
   {
     mail: Mail6,
-    id: 6,
-    type: "AllInbox",
+    visible: true,
   },
   {
     mail: Mail7,
-    id: 7,
-    type: "AllInbox",
+    visible: true,
   },
   {
     mail: Mail8,
-    id: 8,
-    type: "AllInbox",
+    visible: true,
   },
   {
     mail: Mail9,
-    id: 9,
-    type: "AllInbox",
+    visible: true,
   },
   {
     mail: Mail10,
-    id: 10,
-    type: "AllInbox",
+    visible: true,
   },
   {
     mail: Mail11,
-    id: 11,
-    type: "AllInbox",
+    visible: true,
   },
   {
     mail: Mail12,
-    id: 12,
-    type: "AllInbox",
+    visible: true,
   },
   {
     mail: Mail13,
-    id: 13,
-    type: "AllInbox",
+    visible: true,
   },
   {
     mail: Mail14,
-    id: 14,
-    type: "AllInbox",
+    visible: true,
   },
   {
     mail: Mail15,
-    id: 15,
-    type: "AllInbox",
+    visible: true,
   },
   {
     mail: Mail16,
-    id: 16,
-    type: "AllInbox",
+    visible: true,
   },
 ];
 
