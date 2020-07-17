@@ -72,7 +72,6 @@ class Tracker extends Component {
       this.startTracking();
       console.log("gaze Calibration Complete");
     };
-    this.startTracking();
   };
 
   startTracking = () => {
@@ -114,7 +113,7 @@ class Tracker extends Component {
         gazeY: gazeYLoc,
         validationGaze: validation,
       });
-      this.setTransformedGazePos(gazeXLoc, gazeYLoc);
+      //this.setTransformedGazePos(gazeXLoc, gazeYLoc);
     };
   };
 
