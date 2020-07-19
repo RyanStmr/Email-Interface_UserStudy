@@ -6,7 +6,7 @@ class Mail3 extends Component {
     return (
       <React.Fragment>
         <div>
-          <div style={{ backgroundColor: "#FFF", fontSize: "12px" }}>
+          <div style={{ fontSize: "12px" }}>
             <p>
               This email is being sent to all employees with a company email
               address. If someone on your team does not have an company email,

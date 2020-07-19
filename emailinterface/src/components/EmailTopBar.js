@@ -24,14 +24,17 @@ class EmailTopBar extends Component {
     var styles = {
       buttonsTopBar: {
         marginLeft: "10px",
+        backgroundColor: "white",
       },
 
       navButton: {
         marginLeft: "10px",
+        backgroundColor: "white",
       },
 
       buttonIcons: {
         marginLeft: "10px",
+        backgroundColor: "white",
       },
     };
 

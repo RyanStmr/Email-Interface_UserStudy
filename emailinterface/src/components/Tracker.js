@@ -67,11 +67,13 @@ class Tracker extends Component {
   };
 
   startCalibration = () => {
+    window.GazeCloudAPI.APIKey = "GazeBehavior_NonCommercialUse";
     window.GazeCloudAPI.StartEyeTracking();
     window.GazeCloudAPI.OnCalibrationComplete = () => {
       this.startTracking();
       console.log("gaze Calibration Complete");
     };
+    this.startTracking();
   };
 
   startTracking = () => {
@@ -113,13 +115,14 @@ class Tracker extends Component {
         gazeY: gazeYLoc,
         validationGaze: validation,
       });
-      //this.setTransformedGazePos(gazeXLoc, gazeYLoc);
+      this.setTransformedGazePos(gazeXLoc, gazeYLoc);
     };
   };
 
   setTimestamp = () => {
     let currentTimeLoc = Date.now();
-    this.setState({ timeStamp: currentTimeLoc });
+    let newDate = new Date(currentTimeLoc).toLocaleString("de-DE");
+    this.setState({ timeStamp: newDate });
   };
 
   fillCollector = () => {
@@ -137,7 +140,10 @@ class Tracker extends Component {
       click: false,
       clickPosXTransform: 0,
       clickPosYTransform: 0,
+      clickPosX: 0,
+      clickPosY: 0,
       headerInfo: [],
+      inEmailText: false,
     });
   };
 
@@ -202,7 +208,7 @@ class Tracker extends Component {
   handleNewCurrentInbox = (inboxType) => {
     let copy = this.state;
     copy.currentInbox = inboxType;
-    copy.currentEmail = undefined;
+    copy.currentEmail = 0;
     this.setState(copy);
   };
 

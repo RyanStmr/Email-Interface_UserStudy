@@ -203,7 +203,7 @@ class EmailClient extends Component {
                   <Button
                     style={{ width: "200px", height: "50px" }}
                     variant="outlined"
-                    color={currentInbox === "AllInbox" ? "secondary" : ""}
+                    color={currentInbox === "AllInbox" ? "primary" : ""}
                     startIcon={<InboxIcon />}
                   >
                     Inbox
@@ -222,7 +222,7 @@ class EmailClient extends Component {
                 <Button
                   style={{ width: "200px", height: "50px" }}
                   variant="outlined"
-                  color={currentInbox === "ImportantInbox" ? "secondary" : ""}
+                  color={currentInbox === "ImportantInbox" ? "primary" : ""}
                   startIcon={<EmailIcon />}
                 >
                   Important
@@ -240,7 +240,7 @@ class EmailClient extends Component {
                 <Button
                   style={{ width: "200px", height: "50px" }}
                   variant="outlined"
-                  color={currentInbox === "SpamInbox" ? "secondary" : ""}
+                  color={currentInbox === "SpamInbox" ? "primary" : ""}
                   startIcon={<ErrorIcon />}
                 >
                   Spam
@@ -258,7 +258,7 @@ class EmailClient extends Component {
                 <Button
                   style={{ width: "150px", height: "50px" }}
                   variant="outlined"
-                  color={currentInbox === "BinInbox" ? "secondary" : ""}
+                  color={currentInbox === "BinInbox" ? "primary" : ""}
                   startIcon={<DeleteIcon />}
                 >
                   Bin

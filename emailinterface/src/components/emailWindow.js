@@ -33,7 +33,7 @@ class EmailWindow extends Component {
       <div
         style={{
           border: "1px solid grey",
-          backgroundColor: "white",
+          backgroundColor: "#fafafa",
           height: "850px",
           borderRadius: "5px",
         }}
