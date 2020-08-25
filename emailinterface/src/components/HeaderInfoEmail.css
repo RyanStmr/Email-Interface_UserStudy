@@ -3,18 +3,21 @@
   font-size: 15px;
   margin: 0;
   padding-left: 20px;
+  width: 600px;
 }
 
 .AllHeaders {
   display: flex;
   margin-left: 10px;
   margin-right: 10px;
-  border: 1px solid grey;
-  border-radius: 5px;
   background-color: white;
 }
 
 .Wrapper {
   height: 40px;
   width: 45px;
+}
+
+.HeadingInfo {
+  font-weight: bolder;
 }

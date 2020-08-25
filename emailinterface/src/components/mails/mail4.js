@@ -1,45 +1,66 @@
 import React, { Component } from "react";
+import "./MailsDefault.css";
 
 class Mail4 extends Component {
   state = {};
-
   render() {
     return (
-      <React.Fragment>
-        <body>
-          <div>
-            <h3>Bulletin Alert!!</h3>
-            <h3>Attention {this.props.userName}:</h3>
-            <p>Bulletin Headline: Crime Suspect</p>
-            <p>Sending Agency: Police</p>
-            <p>Bulletin Time: 18:47</p>
-            <p>Bulletin Case#: 11-04626</p>
-            <p>Bulletin Author: Leroy Jethro #8847</p>
-            <p>Sending User #: 2892</p>
-            <p>
-              <a href="https://www.google.com" target="_blank">
-                To view the full bulletin alert click here
-              </a>
-            </p>
-            <p>
-              To unsubscribe from these emails click{" "}
-              <a href="https://www.google.com" target="_blank">
-                here
-              </a>
-            </p>
-          </div>
-        </body>
-      </React.Fragment>
+      <div>
+        <p>
+          <b>Lieber Kunde</b>
+        </p>
+        <p>
+          Bitte beachten Sie, dass Ihre Apple-ID verfallen in weniger als 48
+          stunden. Es ist unerlässlich, eine Prüfung der Daten durchzuführen
+          vorhanden ist, sonst Ihre Apple-ID zerstört werden. Klicken Sie
+          einfach auf den Link unten .<br />
+          <a
+            href="http://www.applesupportteams.live"
+            class="internal-link"
+            target="_blank"
+            onMouseEnter={() => {
+              this.props.insideEmailInfo(true, "InLink1");
+            }}
+            onMouseLeave={() => {
+              this.props.insideEmailInfo(false, "InLink1");
+            }}
+            onMouseOver={() => {
+              this.props.insideEmailInfo(true, "InLink1");
+            }}
+            onClick={() => {
+              this.props.insideEmailInfo(true, "ClickedLink1");
+            }}
+          >
+            Klicken Sie auf Jetzt hier zu überprüfen
+          </a>
+          <br />
+          Wir von Apple eine Verifizierung, wenn eine E-Mail-Adresse als
+          Apple-ID gewählt wird. Ihre Apple-ID kann nicht verwendet werden, bis
+          Sie es überprüfen.
+          <br />
+          <br />
+          Apple Support.
+          <br />
+          <br />
+          <sup>
+            Copyright © 2020 App1e Inc. 1 Infinite Loop, Cupertino, CA 95014,
+            United States. all rights reserved
+          </sup>
+        </p>
+      </div>
     );
   }
 }
 
 Mail4.defaultProps = {
-  sender: "PoliceOfGermany@police.com",
-  date: "June 16, 2020, 08:13",
-  subject: "Crime Report",
-  capital: "P",
+  senderName: "Apple Support",
+  sender: "support@apple.com",
+  date: "July 01, 2020, 04:12",
+  subject: "Wichtige Mitteilung!",
+  capital: "A",
   keyID: 4,
+  avatarColor: "grey",
+  unseen: true,
 };
 
 export default Mail4;

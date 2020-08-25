@@ -29,6 +29,7 @@ class SpamInbox extends Component {
     return (
       <div style={{}}>
         <Sidebar
+          inEmailScrollAmount={this.props.inEmailScrollAmount}
           Mails={this.state.spamInbox}
           inboxType="SpamInbox"
           onMoveToSpam={this.props.onMoveToSpam}
@@ -38,7 +39,8 @@ class SpamInbox extends Component {
           onNewEmail={this.props.onNewEmail}
           Recipient={this.props.Recipient}
           userName={this.props.userName}
-          HeaderInfo={this.props.HeaderInfo}
+          insideEmailInfo={this.props.insideEmailInfo}
+          outsideEmailInfo={this.props.outsideEmailInfo}
           inEmailText={this.props.inEmailText}
         />
       </div>

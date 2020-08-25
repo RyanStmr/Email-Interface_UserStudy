@@ -1,0 +1,16 @@
+body {
+  background-color: white;
+}
+
+h1,
+h2,
+h3,
+p {
+  color: #000000;
+  margin: 0em;
+  line-height: 2em;
+}
+
+a {
+  color: clear;
+}

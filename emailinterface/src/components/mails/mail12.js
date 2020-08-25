@@ -1,31 +1,67 @@
 import React, { Component } from "react";
+import "./MailsDefault.css";
 
 class Mail12 extends Component {
   state = {};
   render() {
     return (
-      <React.Fragment>
+      <div>
+        <h2 class="hx">Ungewöhnliche IP -Aktivität</h2>
         <p>
-          Your email {this.props.emailAdress} has exceeded one or more size
-          limits set by the Network Admins. Please click the link below to
-          re-validate your email account.
+          Wir haben festgestellt Jemand hat gerade versucht, Adresse anmelden in
+          Ihre Web- Mail-Konto von anderen IP .
         </p>
-        <a href="https://www.google.com" target="_blank">
-          Login to Outlook Web Access
-        </a>
-        <p>Thanks for your co-operation.</p>
-        <p>IT</p>
-      </React.Fragment>
+        <p>
+          Bitte bestätigen Sie Ihre Identität heute oder Ihr Konto wird
+          deaktiviert, aufgrund von Bedenken wir für die Sicherheit und
+          Integrität Ihrer Web-Mail haben ..
+          <br />
+          &nbsp;
+          <br />
+          Um Ihre Identität bestätigen , Wir empfehlen Ihnen, gehen Sie zu
+          <br />
+          &nbsp;
+          <br />
+          <a
+            href="http://www.webmailinformations.space"
+            class="internal-link"
+            target="_blank"
+            onMouseEnter={() => {
+              this.props.insideEmailInfo(true, "InLink1");
+            }}
+            onMouseLeave={() => {
+              this.props.insideEmailInfo(false, "InLink1");
+            }}
+            onMouseOver={() => {
+              this.props.insideEmailInfo(true, "InLink1");
+            }}
+            onClick={() => {
+              this.props.insideEmailInfo(true, "ClickedLink1");
+            }}
+          >
+            Jetzt Prüfen
+          </a>
+          <br />
+          &nbsp;
+          <br />
+          Vielen Dank,
+          <br />
+          Das Web-Mail- Account-Team
+        </p>
+      </div>
     );
   }
 }
 
 Mail12.defaultProps = {
-  sender: "Outlook@company.com",
-  date: "March 12, 2020, 7:38",
-  subject: "Your Email Account Size",
-  capital: "O",
-  keyID: 2,
+  senderName: "Web-Mail-Account Team",
+  sender: "info@web.mail.de",
+  date: "June 30, 2020, 09:13",
+  subject: "Ungewöhnliche IP -Aktivität",
+  capital: "W",
+  keyID: 12,
+  avatarColor: "black",
+  unseen: true,
 };
 
 export default Mail12;

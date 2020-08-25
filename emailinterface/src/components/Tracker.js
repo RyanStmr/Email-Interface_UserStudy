@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import EmailClient from "./emailClient";
+import AccuracyTest from "./accuracyTest";
 
 class Tracker extends Component {
   constructor(props) {
@@ -7,10 +8,10 @@ class Tracker extends Component {
     this.handleMouseMove = this.handleMouseMove.bind(this);
     this.handleMouseClick = this.handleMouseClick.bind(this);
     this.state = {
-      currentEmail: undefined, //event dependant
+      currentEmail: 0, //event dependant
       currentInbox: "AllInbox",
-      headerInfo: [],
-      inEmailText: false, //event dependant
+      insideEmailInfo: [],
+      outsideEmailInfo: [], //event dependant
       mousePosXPlain: 0,
       mousePosYPlain: 0,
       mousePosXTransform: 0,
@@ -18,35 +19,43 @@ class Tracker extends Component {
       click: false,
       clickPosXTransform: 0,
       clickPosYTransform: 0,
+      clickPosX: 0,
+      clickPosY: 0,
       timeStamp: 0,
       gazeX: 0,
       gazeY: 0,
       gazeXTransform: 0,
       gazeYTransform: 0,
-      validationGaze: 0,
+      validationGaze: 0, // 0: valid gaze, 1 : face tracking lost, 1 : gaze data uncalibrated!
       userId: 0,
       userNickname: "",
       pageScrollY: 0,
-      pageScrollX: 0,
       browserWidth: 0,
       browserHeight: 0,
       marginToScreenTop: 0,
       marginToScreenLeft: 0,
-      mouseGeneralField: 0,
-      mouseEmailField: 0,
+      inEmailScrollAmount: 0,
+      inEmailPositionY: 0,
+
+      submitted: false,
 
       //To be sent at end of study
-      resultInbox: [],
-      visitedLinks: [],
     };
 
+    this.resultInbox = { resultInbox: [], userID: 0 };
     this.stateCollector = [];
+    this.collectionInterval = undefined;
+    this.sendingInterval = undefined;
+    this.accuracyCollector = [];
+    this.accuracyIntervall = undefined;
+    this.collectingAccuracy = false;
   }
 
   componentDidMount() {
     this.getUserID();
     this.getNickname();
     this.startCalibration();
+    this.props.userID(this.state.userId);
   }
 
   getUserID = () => {
@@ -57,7 +66,8 @@ class Tracker extends Component {
 
     fetch("/connect", requestOptions)
       .then((response) => response.json())
-      .then((data) => this.setState({ userId: data.userID }));
+      .then((data) => this.setState({ userId: data.userID }))
+      .then(() => this.props.userID(this.state.userId));
   };
 
   getNickname = () => {
@@ -70,15 +80,14 @@ class Tracker extends Component {
     window.GazeCloudAPI.APIKey = "GazeBehavior_NonCommercialUse";
     window.GazeCloudAPI.StartEyeTracking();
     window.GazeCloudAPI.OnCalibrationComplete = () => {
-      this.startTracking();
       console.log("gaze Calibration Complete");
+      this.startTracking();
     };
-    this.startTracking();
   };
 
   startTracking = () => {
-    var collectionInterval = setInterval(this.collectStates, 1000);
-    var sendingIntervall = setInterval(this.sendData, 5000);
+    this.collectionInterval = setInterval(this.collectStates, 250);
+    this.sendingIntervall = setInterval(this.sendData, 5000);
   };
 
   sendData = () => {
@@ -94,9 +103,23 @@ class Tracker extends Component {
     }).then(this.resetCollector);
   };
 
+  sendAccurcyInfo = () => {
+    //Send to Server
+    const data = this.accuracyCollector;
+    const response = fetch("/accuracyInfo", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    }).then(console.log("sent accuracy info"));
+  };
+
   collectStates = () => {
     this.setAllInfo();
     this.fillCollector();
+    this.resetStates();
   };
 
   setAllInfo = () => {
@@ -106,17 +129,19 @@ class Tracker extends Component {
   };
 
   setGazeData = () => {
-    window.GazeCloudAPI.OnResult = (GazeData) => {
-      let gazeXLoc = GazeData.docX;
-      let gazeYLoc = GazeData.docY;
-      let validation = GazeData.state; // 0: valid gaze, 1 : face tracking lost, 1 : gaze data uncalibrated
-      this.setState({
-        gazeX: gazeXLoc,
-        gazeY: gazeYLoc,
-        validationGaze: validation,
-      });
-      this.setTransformedGazePos(gazeXLoc, gazeYLoc);
+    window.GazeCloudAPI.OnResult = function (GazeData) {
+      window.gazeDataX = GazeData.docX;
+      window.gazeDataY = GazeData.docY;
+      window.validation = GazeData.state; // 0: valid gaze, 1 : face tracking lost, 1 : gaze data uncalibrated!
     };
+
+    this.setState({
+      gazeX: window.gazeDataX,
+      gazeY: window.gazeDataY,
+      validationGaze: window.validation,
+    });
+
+    this.setTransformedGazePos(this.state.gazeX, this.state.gazeY);
   };
 
   setTimestamp = () => {
@@ -127,7 +152,6 @@ class Tracker extends Component {
 
   fillCollector = () => {
     this.stateCollector.push(this.state);
-    this.resetStates();
   };
 
   resetCollector = () => {
@@ -135,15 +159,12 @@ class Tracker extends Component {
   };
 
   resetStates = () => {
-    //containers???
     this.setState({
       click: false,
       clickPosXTransform: 0,
       clickPosYTransform: 0,
       clickPosX: 0,
       clickPosY: 0,
-      headerInfo: [],
-      inEmailText: false,
     });
   };
 
@@ -151,7 +172,6 @@ class Tracker extends Component {
     let x = event.clientX;
     let y = event.clientY;
     this.setState({ mousePosXPlain: x, mousePosYPlain: y });
-    this.setTransformedMousePos(x, y);
   }
 
   settingsChecker = () => {
@@ -168,7 +188,7 @@ class Tracker extends Component {
     let marginTop = window.screenTop;
     let marginLeft = window.screenLeft;
 
-    let yScroll = window.scrollY;
+    let yScroll = Math.round(window.scrollY);
 
     this.setState({
       browserWidth: width,
@@ -177,6 +197,24 @@ class Tracker extends Component {
       marginToScreenTop: marginTop,
       pageScrollY: yScroll,
     });
+
+    this.setTransformedMousePos(
+      this.state.mousePosXPlain,
+      this.state.mousePosYPlain
+    );
+
+    this.setinEmailPositionY();
+  };
+
+  setinEmailPositionY = () => {
+    let inEmailPositionY =
+      this.state.mousePosYPlain + this.state.inEmailScrollAmount;
+    this.setState({ inEmailPositionY: inEmailPositionY });
+  };
+
+  SetInEmailScrollAmount = (scrollAmount) => {
+    let roundScrollAmount = Math.round(scrollAmount);
+    this.setState({ inEmailScrollAmount: roundScrollAmount });
   };
 
   setTransformedMousePos = (x, y) => {
@@ -191,11 +229,29 @@ class Tracker extends Component {
     this.setState({ mousePosXTransform: xTran, mousePosYTransform: yTran });
   };
 
+  setTransformedGazePos = (x, y) => {
+    let clientWidth = 980;
+    if (x > this.state.browserWidth / 2 + clientWidth / 2) {
+      var xGazeTran =
+        (x - (this.state.browserWidth / 2 + clientWidth / 2)) * -1;
+      var yGazeTran = y + this.state.pageScrollY;
+    } else {
+      var xGazeTran = (this.state.browserWidth / 2 - clientWidth / 2 - x) * -1;
+      var yGazeTran = y + this.state.pageScrollY;
+    }
+    this.setState({ gazeXTransform: xGazeTran, gazeYTransform: yGazeTran });
+  };
+
   handleMouseClick(event) {
     let copy = this.state;
+    this.handleMouseMove(event);
+    this.setTransformedMousePos(
+      this.state.mousePosXPlain,
+      this.state.mousePosYPlain
+    );
     copy.click = true;
-    copy.clickPosX = event.clientX;
-    copy.clickPosY = event.clientY;
+    copy.clickPosX = this.state.mousePosXPlain;
+    copy.clickPosY = this.state.mousePosYPlain;
     this.setState(copy);
   }
 
@@ -212,149 +268,161 @@ class Tracker extends Component {
     this.setState(copy);
   };
 
-  handleInboxResult = (finalInboxLoc) => {
-    let copy = this.state;
-    copy.resultInbox = finalInboxLoc;
-    this.setState(copy);
-  };
-
-  handleHeaderInfo = (whichPart) => {
-    let copy = this.state;
-    copy.headerInfo.push(whichPart);
-    this.setState(copy);
-  };
-
-  handleInEmailText = () => {
-    let copy = this.state;
-    copy.inEmailText = true;
-    this.setState(copy);
-  };
-  /*
-  collectStates = () => {
-    this.stateCollector.push(this.state);
-    console.log(this.stateCollector);
-    this.setState({ clickPosX: 0, clickPosY: 0 });
-    this.startGazeHandling();
-  };
-
-  startCalib = () => {
-    window.GazeCloudAPI.StartEyeTracking();
-  };
-
-  startGazeHandling = () => {
-    var gazeInterval = setInterval(this.handleGaze, 1000);
-  };
-
-  handleEmailChange = (emailNr) => {
-    let copy = this.state;
-    copy.currentEmail = emailNr;
-    this.setState(copy);
-  };
-
-  handleMouseMove(event) {
-    let copy = this.state;
-    copy.x = event.clientX;
-    copy.y = event.clientY;
-
-    this.setState(copy);
-  }
-
-  handleGaze = () => {
-    window.GazeCloudAPI.OnResult = (GazeData) => {
-      let copy = this.state;
-      GazeData.docX = 3;
-      GazeData.docY = 5;
-      copy.gazeX = GazeData.docX;
-      copy.gazeY = GazeData.docY;
-      this.setState(copy);
-    };
-  };
-
-  handleMouseClick(event) {
-    let copy = this.state;
-    copy.click = true;
-    copy.clickPosX = event.clientX;
-    copy.clickPosY = event.clientY;
-
-    this.setState(copy);
-  }
-
-  componentDidMount() {
-    var collectionInterval = setInterval(this.collectStates, 5000);
-    var windowSettingsInterval = setInterval(this.settingsChecker, 1000);
-    var timerInterval = setInterval(this.timer, 1000);
-
-    const requestOptions = {
-      method: "GET",
-      headers: { "Content-Type": "application/json" },
-    };
-
-    fetch("/connect", requestOptions)
-      .then((response) => response.json())
-      .then((data) => this.setState({ userId: data.userID }));
-  }
-
-  settingsChecker = () => {
-    var width =
-      window.innerWidth ||
-      document.documentElement.clientWidth ||
-      document.body.clientWidth;
-
-    var height =
-      window.innerHeight ||
-      document.documentElement.clientHeight ||
-      document.body.clientHeight;
-
-    var marginTop = window.screenTop;
-    var marginLeft = window.screenLeft;
-
-    this.setState({
-      browserWidth: width,
-      browserHeight: height,
-      marginToScreenLeft: marginLeft,
-      marginToScreenTop: marginTop,
+  handleInboxResult = (finalInboxLocal) => {
+    this.resultInbox.resultInbox = finalInboxLocal;
+    this.resultInbox.resultInbox.forEach((element) => {
+      element.keyID = element.mail.defaultProps.keyID;
+      element.unseen = element.mail.defaultProps.unseen;
     });
+    this.resultInbox.userID = this.state.userId;
+    this.sendFinalInbox();
+    this.startAccuracyTest();
+    clearInterval(this.collectionInterval);
+    clearInterval(this.sendingIntervall);
   };
 
-  timer = () => {
-    let copy = this.state;
-    let currentTime = Date.now();
-    copy.currentTime = currentTime;
+  sendFinalInbox = () => {
+    //Send to Server
 
-    this.setState(copy);
-  };
-
-  tester = () => {
-    console.log(this.state);
-
-    const data = this.stateCollector;
-
-    const response = fetch("/data", {
+    const data = this.resultInbox;
+    const response = fetch("/resultInbox", {
       method: "POST",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
-    }).then(this.resetCollector);
+    }).then(console.log("sent result Inbox"));
   };
 
-  resetCollector = () => {
-    this.stateCollector = [];
-    console.log("resetted");
+  startAccuracyTest = () => {
+    let copy = this.state;
+    copy.submitted = true;
+    this.setState(copy);
   };
-*/
+
+  collectAccuracyData = (circlePos, width, height) => {
+    if (this.collectingAccuracy === false) {
+      this.accuracyIntervall = setInterval(
+        this.fillAccuracyCollector,
+        100,
+        circlePos,
+        width,
+        height
+      );
+      this.collectingAccuracy = true;
+    } else {
+      clearInterval(this.accuracyIntervall);
+      this.collectingAccuracy = false;
+      this.collectAccuracyData(circlePos, width, height);
+    }
+  };
+
+  fillAccuracyCollector = (circlePos, width, height) => {
+    this.setGazeData();
+    let accuracyData = [
+      this.state.userId,
+      circlePos,
+      this.state.gazeX,
+      this.state.gazeY,
+      this.state.validationGaze,
+      width,
+      height,
+    ];
+    this.accuracyCollector.push(accuracyData);
+  };
+
+  stopAccuracyTest = () => {
+    this.sendAccurcyInfo();
+    window.GazeCloudAPI.StopEyeTracking();
+    clearInterval(this.accuracyIntervall);
+  };
+
+  handleInsideEmailInfo = (InOrOutput, whichPart) => {
+    if (InOrOutput === true) {
+      let copy = this.state;
+      if (whichPart.includes("ClickedLink")) {
+        copy.insideEmailInfo.push(whichPart);
+        const timerForClickedLink = setTimeout(() => {
+          this.deletefromInsideEmailInfo(whichPart);
+        }, 1000);
+        this.setState(copy);
+        this.sendData();
+        return;
+      }
+      if (!copy.insideEmailInfo.includes(whichPart)) {
+        copy.insideEmailInfo.push(whichPart);
+      } else {
+      }
+      this.setState(copy);
+    } else {
+      this.deletefromInsideEmailInfo(whichPart);
+    }
+  };
+
+  handleOutsideEmailInfo = (InOrOutput, whichPart) => {
+    if (InOrOutput === true) {
+      let copy = this.state;
+      copy.outsideEmailInfo.push(whichPart);
+      this.setState(copy);
+    } else {
+      this.deletefromOutsideEmailInfo(whichPart);
+    }
+  };
+
+  deletefromInsideEmailInfo = (whichToDelete) => {
+    let copy = this.state;
+    const index = copy.insideEmailInfo.indexOf(whichToDelete);
+    if (index > -1) {
+      copy.insideEmailInfo.splice(index, 1);
+    }
+    this.setState(copy);
+  };
+
+  deletefromOutsideEmailInfo = (whichToDelete) => {
+    let copy = this.state;
+    const index = copy.outsideEmailInfo.indexOf(whichToDelete);
+    if (index > -1) {
+      copy.outsideEmailInfo.splice(index, 1);
+    }
+    this.setState(copy);
+  };
+
+  handleClickedInboxButton = (whichButton, insideWhichButton) => {
+    let copy = this.state;
+    copy.insideEmailInfo.push(whichButton);
+    this.setState(copy);
+
+    const timer2 = setTimeout(() => {
+      this.deletefromInsideEmailInfo(whichButton);
+    }, 1050);
+  };
+
   render() {
     return (
-      <div onMouseMove={this.handleMouseMove} onClick={this.handleMouseClick}>
-        <EmailClient
-          UserInfo={this.props.userInfo}
-          onNewEmail={this.handleNewCurrentEmail}
-          onNewInbox={this.handleNewCurrentInbox}
-          setInboxResult={this.handleInboxResult}
-          HeaderInfo={this.handleHeaderInfo}
-          inEmailText={this.handleInEmailText}
-        ></EmailClient>
+      <div>
+        {this.state.submitted === false ? (
+          <div
+            onMouseMove={this.handleMouseMove}
+            onClick={this.handleMouseClick}
+          >
+            <EmailClient
+              clickedButton={this.handleClickedInboxButton}
+              inEmailScrollAmount={this.SetInEmailScrollAmount}
+              UserInfo={this.props.userInfo}
+              onNewEmail={this.handleNewCurrentEmail}
+              onNewInbox={this.handleNewCurrentInbox}
+              setInboxResult={this.handleInboxResult}
+              insideEmailInfo={this.handleInsideEmailInfo}
+              outsideEmailInfo={this.handleOutsideEmailInfo}
+            ></EmailClient>
+          </div>
+        ) : (
+          <AccuracyTest
+            collectAccuracyData={this.collectAccuracyData}
+            stopAccuracyTest={this.stopAccuracyTest}
+          ></AccuracyTest>
+        )}
       </div>
     );
   }

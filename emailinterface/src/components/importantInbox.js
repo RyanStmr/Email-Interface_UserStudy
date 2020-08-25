@@ -30,6 +30,7 @@ class importantInbox extends Component {
     return (
       <div style={{}}>
         <Sidebar
+          inEmailScrollAmount={this.props.inEmailScrollAmount}
           Mails={this.state.importantInbox}
           InboxType="ImportantInbox"
           onMoveToSpam={this.props.onMoveToSpam}
@@ -39,7 +40,8 @@ class importantInbox extends Component {
           onNewEmail={this.props.onNewEmail}
           Recipient={this.props.Recipient}
           userName={this.props.userName}
-          HeaderInfo={this.props.HeaderInfo}
+          insideEmailInfo={this.props.insideEmailInfo}
+          outsideEmailInfo={this.props.outsideEmailInfo}
           inEmailText={this.props.inEmailText}
         />
       </div>

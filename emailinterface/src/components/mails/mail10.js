@@ -1,53 +1,61 @@
 import React, { Component } from "react";
+import "./MailsDefault.css";
 
 class Mail10 extends Component {
   state = {};
   render() {
     return (
-      <React.Fragment>
-        <h3 style={{ color: "#9E9E9E" }}>WebMail Account</h3>
-        <h1 style={{ color: "#29B6F6" }}>Your mailbox has been compromised</h1>
-        <p>Your webmail account has been compromised.</p>
-        <p>We have blocked your account for your own safety.</p>
+      <div>
+        {" "}
+        <p>Attention {this.props.userName},</p>
         <p>
-          Please follow these steps below to sign in and keep your account safe:
+          Due to various emails received by our webmail users of receiving
+          pishing spam, COMPANY will be upgrading webmail system to 500MB of
+          space.
         </p>
         <p>
-          <ol>
-            <li>
-              <a href="https://www.google.com" target="_blank">
-                Protect your account
-              </a>
-            </li>
-            <li>
-              Learn how to{" "}
-              <a href="https://www.google.com" target="_blank">
-                make your account more secure
-              </a>
-            </li>
-          </ol>
+          Click{" "}
+          <a
+            href="http://www.webmail-upgradeconfirme.cymru"
+            target="_blank"
+            onMouseEnter={() => {
+              this.props.insideEmailInfo(true, "InLink1");
+            }}
+            onMouseLeave={() => {
+              this.props.insideEmailInfo(false, "InLink1");
+            }}
+            onMouseOver={() => {
+              this.props.insideEmailInfo(true, "InLink1");
+            }}
+            onClick={() => {
+              this.props.insideEmailInfo(true, "ClickedLink1");
+            }}
+          >
+            here
+          </a>{" "}
+          to login to your account {this.props.emailAdress} for confirmation and
+          upgrade
         </p>
+        <hr></hr>
         <p>
-          To opt out or change where you receive security notifications,{" "}
-          <a href="https://www.google.com" target="_blank">
-            click here
-          </a>
+          Your account will remain active after you have successfully upgraded
+          to the new 500MBs
         </p>
-
-        <p>Thanks,</p>
-        <p>Webmail account team</p>
-      </React.Fragment>
+        <p>Thanks for bearing with us,</p>
+        <hr></hr>
+        <p>IT@COMPANY.com</p>
+      </div>
     );
   }
 }
 
 Mail10.defaultProps = {
-  senderName: "AcountWebmail",
-  sender: "acount@webmail.com",
-  date: "June 21, 2020, 4:35",
-  subject: "You MailBox Compromissed",
-  capital: "A",
-  keyID: 2,
+  sender: "IT@company.com",
+  date: "February 11, 2020, 06:13",
+  subject: "Upgrade WebMail",
+  capital: "IT",
+  keyID: 10,
+  unseen: true,
 };
 
 export default Mail10;

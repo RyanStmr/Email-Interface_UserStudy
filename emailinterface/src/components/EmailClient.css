@@ -30,13 +30,8 @@
   height: 60px;
 }
 
-h1,
-h2,
-h3,
-p {
-  color: #000000;
-}
-
 a {
-  color: clear;
+}
+a:hover {
+  border-bottom: none;
 }

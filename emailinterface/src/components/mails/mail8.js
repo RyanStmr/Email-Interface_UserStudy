@@ -1,41 +1,70 @@
 import React, { Component } from "react";
+import "./MailsDefault.css";
 
 class Mail8 extends Component {
   state = {};
   render() {
     return (
-      <React.Fragment>
-        <p>Hello {this.props.userName},</p>
+      <div>
         <p>
-          The IT Department was running an email server migration last night and
-          encountered an error with several email accounts. Your account{" "}
-          {this.props.emailAdress} happened to be one of them.
+          <img
+            alt="Netflix-Kindersicherungshandbuch | Internetangelegenheiten"
+            src="https://www.internetmatters.org/wp-content/uploads/2018/01/netflix-logo-png-large-1-1.png"
+            width="300px"
+            height="150"
+          />
         </p>
         <p>
-          We attempted to resolve this problem and believe we have fixed it.
+          <strong>We&#39;re sorry to say goodbye</strong>
+        </p>
+        <p>&nbsp;</p>
+        <p>Hello,&nbsp;</p>
+        <p>
+          iTunes let us know that you asked to cancel your membership. We&#39;ve
+          cancelled your membership effective Monday, June 29th, 2020.
         </p>
         <p>
-          If your email has been working just fine, please let us know by going
-          to this secure{" "}
-          <a href="https://www.google.com" target="_blank">
-            website
-          </a>{" "}
-          and validate your email address is working.
+          Obviously we&#39;d love to have you back. If you change your mind,
+          simply restat your membership to enjoy all the best TV shows &amp;
+          movies without interruption.
         </p>
-
-        <p>Thanks for your quick cooperation,</p>
-        <p>IT</p>
-      </React.Fragment>
+        <a
+          href="http://www.netflixonlinelogin.club"
+          target="_blank"
+          onMouseEnter={() => {
+            this.props.insideEmailInfo(true, "InLink1");
+          }}
+          onMouseLeave={() => {
+            this.props.insideEmailInfo(false, "InLink1");
+          }}
+          onMouseOver={() => {
+            this.props.insideEmailInfo(true, "InLink1");
+          }}
+          onClick={() => {
+            this.props.insideEmailInfo(true, "ClickedLink1");
+          }}
+        >
+          RESTART MEMBERSHIP
+        </a>{" "}
+        <p>
+          We&#39;re here to help if you need it. Visit the Help Center for more
+          info or contact us.
+        </p>
+        <p>-Your friends at Netflix</p>
+      </div>
     );
   }
 }
 
 Mail8.defaultProps = {
-  sender: "it.info@company.com",
-  date: "March 13, 2020,09:10",
-  subject: "Issues with your Email Account",
-  capital: "IT",
-  keyID: 2,
+  senderName: "Netflix",
+  sender: "team@netflix.com",
+  date: "June 26, 2020, 03:01",
+  subject: "We're sorry to say goodbye",
+  capital: "N",
+  keyID: 8,
+  avatarColor: "red",
+  unseen: true,
 };
 
 export default Mail8;

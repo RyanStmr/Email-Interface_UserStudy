@@ -30,6 +30,7 @@ class BinInbox extends Component {
     return (
       <div style={{}}>
         <Sidebar
+          inEmailScrollAmount={this.props.inEmailScrollAmount}
           Mails={this.state.binInbox}
           InboxType="BinInbox"
           onMoveToSpam={this.props.onMoveToSpam}
@@ -39,8 +40,9 @@ class BinInbox extends Component {
           onNewEmail={this.props.onNewEmail}
           Recipient={this.props.Recipient}
           userName={this.props.userName}
-          HeaderInfo={this.props.HeaderInfo}
+          insideEmailInfo={this.props.insideEmailInfo}
           inEmailText={this.props.inEmailText}
+          outsideEmailInfo={this.props.outsideEmailInfo}
         />
       </div>
     );

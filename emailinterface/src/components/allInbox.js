@@ -30,6 +30,7 @@ class AllInbox extends Component {
     return (
       <div>
         <Sidebar
+          inEmailScrollAmount={this.props.inEmailScrollAmount}
           Mails={this.state.allInbox}
           InboxType="AllInbox"
           onMoveToSpam={this.props.onMoveToSpam}
@@ -39,7 +40,8 @@ class AllInbox extends Component {
           onNewEmail={this.props.onNewEmail}
           Recipient={this.props.Recipient}
           userName={this.props.userName}
-          HeaderInfo={this.props.HeaderInfo}
+          insideEmailInfo={this.props.insideEmailInfo}
+          outsideEmailInfo={this.props.outsideEmailInfo}
           inEmailText={this.props.inEmailText}
         />
       </div>
